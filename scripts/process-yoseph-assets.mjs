@@ -1,0 +1,227 @@
+import fs from 'node:fs/promises'
+import path from 'node:path'
+import sharp from 'sharp'
+
+const SOURCE = 'C:\\Users\\15879\\Documents\\Abel\\Availables\\yoseph'
+const PUBLIC = path.resolve('public')
+const THUMB_WIDTH = 600
+const THUMB_QUALITY = 72
+
+const IMAGE_EXT = new Set(['.jpg', '.jpeg', '.png', '.webp', '.JPG', '.JPEG', '.PNG'])
+
+const WORK_SOURCES = [
+  {
+    slug: 'paintings',
+    sourceDir: 'Paintings',
+    category: 'painting',
+    skip: new Set(['yoseph.jpg']),
+  },
+  {
+    slug: 'paintings2',
+    sourceDir: 'Paintings2',
+    category: 'painting',
+    skip: new Set(),
+  },
+  {
+    slug: 'digital-art',
+    sourceDir: 'Digital Art',
+    category: 'digital',
+    skip: new Set(),
+  },
+  {
+    slug: 'installation',
+    sourceDir: 'installation',
+    category: 'installation',
+    skip: new Set(),
+  },
+]
+
+const EXHIBITION_SOURCE = {
+  slug: 'exhibitions',
+  sourceDir: 'exhibition',
+}
+
+function parseDescription(content) {
+  const meta = {}
+  for (const line of content.split(/\r?\n/)) {
+    const match = line.match(/^([^:]+):\s*(.+)$/)
+    if (match) {
+      meta[match[1].trim().toLowerCase()] = match[2].trim()
+    }
+  }
+  return meta
+}
+
+async function readDescription(dir) {
+  for (const name of ['descriptions.txt', 'Description.txt', 'details.txt']) {
+    const filePath = path.join(dir, name)
+    try {
+      const content = await fs.readFile(filePath, 'utf8')
+      return parseDescription(content)
+    } catch {
+      // try next filename
+    }
+  }
+  return {}
+}
+
+function titleFromFilename(filename) {
+  const base = path.parse(filename).name
+  if (/^\d+(\.\d+)?$/.test(base)) return `Untitled ${base}`
+  if (/^IMG_\d+$/i.test(base)) return `Work ${base.replace(/^IMG_/i, '')}`
+  return base.replace(/[_-]+/g, ' ').replace(/\s+/g, ' ').trim()
+}
+
+async function ensureDir(dir) {
+  await fs.mkdir(dir, { recursive: true })
+}
+
+async function copyAndThumb(sourceFile, destDir, thumbDir) {
+  const filename = path.basename(sourceFile)
+  const destFile = path.join(destDir, filename)
+  const thumbFile = path.join(thumbDir, filename.replace(/\.png$/i, '.jpg'))
+
+  await fs.copyFile(sourceFile, destFile)
+
+  const pipeline = sharp(sourceFile).rotate().resize({
+    width: THUMB_WIDTH,
+    withoutEnlargement: true,
+  })
+
+  if (/\.png$/i.test(filename)) {
+    await pipeline.jpeg({ quality: THUMB_QUALITY, mozjpeg: true }).toFile(thumbFile)
+  } else {
+    await pipeline.jpeg({ quality: THUMB_QUALITY, mozjpeg: true }).toFile(thumbFile)
+  }
+
+  return { filename, thumbName: path.basename(thumbFile) }
+}
+
+async function processWorks() {
+  const artworks = []
+
+  for (const source of WORK_SOURCES) {
+    const sourcePath = path.join(SOURCE, source.sourceDir)
+    const destDir = path.join(PUBLIC, 'works', source.slug)
+    const thumbDir = path.join(destDir, 'thumbs')
+    await ensureDir(destDir)
+    await ensureDir(thumbDir)
+
+    const meta = await readDescription(sourcePath)
+    const medium = meta.medium ?? (source.category === 'installation' ? 'Installation Art' : 'Painting')
+    const dimensions = meta.size
+    const year = meta.year
+
+    const entries = await fs.readdir(sourcePath)
+    const images = entries
+      .filter((name) => IMAGE_EXT.has(path.extname(name)))
+      .filter((name) => !source.skip.has(name))
+      .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }))
+
+    for (const image of images) {
+      const sourceFile = path.join(sourcePath, image)
+      const { filename, thumbName } = await copyAndThumb(sourceFile, destDir, thumbDir)
+      const id = `${source.slug}-${filename}`.toLowerCase().replace(/[^a-z0-9.]+/g, '-').replace(/\./g, '-')
+
+      artworks.push({
+        id,
+        title: titleFromFilename(filename),
+        medium,
+        dimensions,
+        year,
+        category: source.category,
+        thumbnail: `/works/${source.slug}/thumbs/${thumbName}`,
+        full: `/works/${source.slug}/${filename}`,
+        colSpan: 2,
+        rowSpan: 1,
+      })
+    }
+  }
+
+  return artworks
+}
+
+async function processExhibitions() {
+  const sourcePath = path.join(SOURCE, EXHIBITION_SOURCE.sourceDir)
+  const destDir = path.join(PUBLIC, 'exhibitions')
+  const thumbDir = path.join(destDir, 'thumbs')
+  await ensureDir(destDir)
+  await ensureDir(thumbDir)
+
+  const meta = await readDescription(sourcePath)
+  const images = []
+
+  const entries = await fs.readdir(sourcePath)
+  const files = entries
+    .filter((name) => IMAGE_EXT.has(path.extname(name)))
+    .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }))
+
+  for (const [index, image] of files.entries()) {
+    const sourceFile = path.join(sourcePath, image)
+    const { filename, thumbName } = await copyAndThumb(sourceFile, destDir, thumbDir)
+    images.push({
+      id: `ex-${index + 1}`,
+      src: `/exhibitions/${filename}`,
+      thumb: `/exhibitions/thumbs/${thumbName}`,
+      alt: meta.title ? `${meta.title} — photo ${index + 1}` : `Exhibition photo ${index + 1}`,
+    })
+  }
+
+  return images
+}
+
+function toTsArray(data, exportName, typeImport) {
+  const body = JSON.stringify(data, null, 2)
+    .replace(/"([^"]+)":/g, '$1:')
+    .replace(/"/g, "'")
+
+  if (typeImport) {
+    return `${typeImport}\n\nexport const ${exportName} = ${body} as const\n`
+  }
+
+  return `export const ${exportName} = ${body} as const\n`
+}
+
+async function main() {
+  const artworks = await processWorks()
+  const exhibitions = await processExhibitions()
+
+  await fs.writeFile(
+    path.resolve('src/data/artworks.generated.ts'),
+    toTsArray(
+      artworks,
+      'artworks',
+      "import type { Artwork } from '../types/artwork'\n\nexport const artworks: Artwork[]",
+    ).replace('export const artworks: Artwork[] =', 'export const artworks: Artwork[] ='),
+  )
+
+  // Fix the generated file format properly
+  const artworksTs = `import type { Artwork } from '../types/artwork'
+
+export const artworks: Artwork[] = ${JSON.stringify(artworks, null, 2)
+    .replace(/"([^"]+)":/g, '$1:')
+    .replace(/"/g, "'")} as Artwork[]
+`
+
+  const exhibitionsTs = `export type ExhibitionImage = {
+  id: string
+  src: string
+  thumb: string
+  alt: string
+}
+
+export const exhibitionImages: ExhibitionImage[] = ${JSON.stringify(exhibitions, null, 2)
+    .replace(/"([^"]+)":/g, '$1:')
+    .replace(/"/g, "'")} as ExhibitionImage[]
+`
+
+  await fs.writeFile(path.resolve('src/data/artworks.generated.ts'), artworksTs)
+  await fs.writeFile(path.resolve('src/data/exhibitions.ts'), exhibitionsTs)
+
+  console.log(`Processed ${artworks.length} artworks and ${exhibitions.length} exhibition images.`)
+}
+
+main().catch((error) => {
+  console.error(error)
+  process.exit(1)
+})
