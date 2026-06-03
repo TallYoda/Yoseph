@@ -1,4 +1,6 @@
 import {
+  CV_PDF_FILENAME,
+  CV_PDF_URL,
   education,
   exhibitions,
   prizes,
@@ -53,7 +55,13 @@ export default function CV() {
           ))}
         </ul>
       </div>
-      <a className="cv-download" href="/cv/Yosef-Atskelewi-CV.pdf" download>
+      <a
+        className="cv-download"
+        href={CV_PDF_URL}
+        download={CV_PDF_FILENAME}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         Check out my CV
       </a>
     </div>

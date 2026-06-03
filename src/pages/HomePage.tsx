@@ -1,12 +1,13 @@
-import WorksSection from '../sections/WorksSection'
-import AboutSection from '../sections/AboutSection'
-import ContactSection from '../sections/ContactSection'
-import CVSection from '../sections/CVSection'
+import HeroMarquee from '../components/home/HeroMarquee'
+import { getHeroMarqueeImages } from '../data/heroMarquee'
+
+const marqueeImages = getHeroMarqueeImages()
 
 export default function HomePage() {
   return (
-    <main id="top">
+    <main id="top" className="home-page">
       <section className="hero">
+        <HeroMarquee images={marqueeImages} />
         <div className="hero-statement">
           <p className="excerpt">
             Yosef Atskelewi is a multidisciplinary artist based in Addis Ababa,
@@ -18,11 +19,6 @@ export default function HomePage() {
           </p>
         </div>
       </section>
-
-      <WorksSection />
-      <AboutSection />
-      <CVSection />
-      <ContactSection />
     </main>
   )
 }

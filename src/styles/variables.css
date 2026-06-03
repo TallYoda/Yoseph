@@ -1,9 +1,26 @@
+/*
+  Type stack (aligned with Tegene Kunbi / Cargo):
+  - Barlow Condensed  → Diatype Condensed Variable (display, headings)
+  - DM Sans           → Alte Haas Grotesk (body, captions)
+  - Space Grotesk     → Monument Grotesk Variable (UI, nav, labels)
+*/
+
 :root {
-  font-family: 'Work Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  color: rgba(0, 0, 0, 0.85);
+  --font-display: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  --font-body: 'DM Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-ui: 'Space Grotesk', 'DM Sans', sans-serif;
+
+  --weight-body: 400;
+  --weight-body-medium: 500;
+  --weight-ui: 600;
+  --weight-display: 700;
+
+  font-family: var(--font-body);
+  font-weight: var(--weight-body);
+  color: rgba(0, 0, 0, 0.88);
   background-color: #ffffff;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   scroll-behavior: smooth;
-  line-height: 1.4;
+  line-height: 1.45;
 }

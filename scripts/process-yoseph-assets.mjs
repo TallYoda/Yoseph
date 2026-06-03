@@ -182,9 +182,123 @@ function toTsArray(data, exportName, typeImport) {
   return `export const ${exportName} = ${body} as const\n`
 }
 
+const HERO_THUMB_WIDTH = 1400
+const HERO_THUMB_QUALITY = 85
+
+async function processHero() {
+  const sourcePath = path.join(SOURCE, 'hero')
+  const destDir = path.join(PUBLIC, 'hero')
+  const thumbDir = path.join(destDir, 'thumbs')
+  await ensureDir(destDir)
+  await ensureDir(thumbDir)
+
+  for (const stale of await fs.readdir(destDir)) {
+    if (stale === 'thumbs') continue
+    await fs.unlink(path.join(destDir, stale)).catch(() => {})
+  }
+  for (const stale of await fs.readdir(thumbDir)) {
+    await fs.unlink(path.join(thumbDir, stale)).catch(() => {})
+  }
+
+  const entries = await fs.readdir(sourcePath)
+  const images = entries
+    .filter((name) => IMAGE_EXT.has(path.extname(name)))
+    .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }))
+
+  const marquee = []
+
+  for (const [index, image] of images.entries()) {
+    const sourceFile = path.join(sourcePath, image)
+    const outputName = `hero-${String(index + 1).padStart(2, '0')}.jpg`
+    const destFile = path.join(destDir, outputName)
+    const thumbFile = path.join(thumbDir, outputName)
+
+    await sharp(sourceFile)
+      .rotate()
+      .resize({ width: HERO_THUMB_WIDTH, withoutEnlargement: true })
+      .jpeg({ quality: HERO_THUMB_QUALITY, mozjpeg: true })
+      .toFile(destFile)
+
+    await sharp(destFile)
+      .jpeg({ quality: HERO_THUMB_QUALITY, mozjpeg: true })
+      .toFile(thumbFile)
+
+    const base = path.parse(image).name
+    const alt =
+      base.toLowerCase() === 'yoseph' ? 'Yosef Atskelewi' : `Untitled ${base}`
+
+    marquee.push({
+      src: `/hero/thumbs/${outputName}`,
+      alt,
+    })
+  }
+
+  const heroTs = `export type HeroMarqueeImage = {
+  src: string
+  alt: string
+}
+
+/** Paintings from the dedicated hero folder only (see public/hero). */
+export const heroMarqueeImages: HeroMarqueeImage[] = ${JSON.stringify(marquee, null, 2)} as HeroMarqueeImage[]
+
+export function getHeroMarqueeImages() {
+  return heroMarqueeImages
+}
+`
+
+  await fs.writeFile(path.resolve('src/data/heroMarquee.ts'), heroTs)
+  console.log(`Updated ${marquee.length} hero marquee images.`)
+}
+
+const CV_OUTPUT_NAME = 'Yosef-Atskelewi-CV-2026.pdf'
+
+async function processCv() {
+  const sourceDir = path.join(SOURCE, 'cv')
+  const destDir = path.join(PUBLIC, 'cv')
+  await ensureDir(destDir)
+
+  const entries = await fs.readdir(sourceDir)
+  const pdf = entries.find((name) => /\.pdf$/i.test(name))
+  if (!pdf) {
+    console.warn('No PDF found in cv folder.')
+    return
+  }
+
+  await fs.copyFile(path.join(sourceDir, pdf), path.join(destDir, CV_OUTPUT_NAME))
+  console.log(`Updated CV: ${CV_OUTPUT_NAME}`)
+}
+
+async function processPortrait() {
+  const portraitDir = path.join(SOURCE, 'portrait')
+  const destDir = path.join(PUBLIC, 'about')
+  const thumbDir = path.join(destDir, 'thumbs')
+  await ensureDir(destDir)
+  await ensureDir(thumbDir)
+
+  const entries = await fs.readdir(portraitDir)
+  const image = entries.find((name) => IMAGE_EXT.has(path.extname(name)))
+  if (!image) {
+    console.warn('No portrait image found in portrait folder.')
+    return
+  }
+
+  const sourceFile = path.join(portraitDir, image)
+  await fs.copyFile(sourceFile, path.join(destDir, 'portrait.jpg'))
+  await sharp(sourceFile)
+    .rotate()
+    .resize({ width: 480, withoutEnlargement: true })
+    .jpeg({ quality: 82, mozjpeg: true })
+    .toFile(path.join(thumbDir, 'portrait.jpg'))
+
+  console.log('Updated portrait.')
+}
+
 async function main() {
   const artworks = await processWorks()
   const exhibitions = await processExhibitions()
+  await processHero()
+  await processPortrait()
+  await processCv()
 
   await fs.writeFile(
     path.resolve('src/data/artworks.generated.ts'),

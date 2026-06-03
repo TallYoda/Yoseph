@@ -38,12 +38,12 @@ export default function ArtworkCard({
           loading="lazy"
           decoding="async"
         />
+        <ArtworkOverlay
+          title={artwork.title}
+          medium={artwork.medium}
+          dimensions={artwork.dimensions}
+        />
       </span>
-      <ArtworkOverlay
-        title={artwork.title}
-        medium={artwork.medium}
-        dimensions={artwork.dimensions}
-      />
     </button>
   )
 }
