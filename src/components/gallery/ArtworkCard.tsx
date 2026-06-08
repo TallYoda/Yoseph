@@ -33,27 +33,35 @@ export default function ArtworkCard({
       }
       onClick={onClick}
     >
-      <span className="work-media">
-        <img
-          src={artwork.thumbnail}
-          alt={getArtworkAlt(artwork)}
-          loading="lazy"
-          decoding="async"
-        />
-        {!showInstallationDetails && (
-          <ArtworkOverlay
-            title={artwork.title}
-            medium={artwork.medium}
-            dimensions={artwork.dimensions}
+      <span
+        className={
+          showInstallationDetails
+            ? 'work-installation-layout'
+            : 'work-card-layout'
+        }
+      >
+        <span className="work-media">
+          <img
+            src={artwork.thumbnail}
+            alt={getArtworkAlt(artwork)}
+            loading="lazy"
+            decoding="async"
           />
+          {!showInstallationDetails && (
+            <ArtworkOverlay
+              title={artwork.title}
+              medium={artwork.medium}
+              dimensions={artwork.dimensions}
+            />
+          )}
+        </span>
+        {showInstallationDetails && artwork.description && (
+          <span className="work-installation-details">
+            <span className="work-title">{artwork.title}</span>
+            <span className="work-description">{artwork.description}</span>
+          </span>
         )}
       </span>
-      {showInstallationDetails && artwork.description && (
-        <span className="work-installation-details">
-          <span className="work-title">{artwork.title}</span>
-          <span className="work-description">{artwork.description}</span>
-        </span>
-      )}
     </button>
   )
 }

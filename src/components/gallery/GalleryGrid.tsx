@@ -75,8 +75,11 @@ export default function GalleryGrid({
           />
           <div className="works-grid">
             {group.artworks.map((artwork, index) => {
+              const isInstallationGroup = group.category === 'installation'
               const position = index % 5
-              const colSpan = position < 2 ? 3 : 2
+              const colSpan = isInstallationGroup ? 6 : position < 2 ? 3 : 2
+              const showDetails =
+                isInstallationGroup || showInstallationDetails
 
               return (
                 <ArtworkCard
@@ -84,7 +87,7 @@ export default function GalleryGrid({
                   artwork={artwork}
                   colSpan={colSpan}
                   rowSpan={1}
-                  showInstallationDetails={showInstallationDetails}
+                  showInstallationDetails={showDetails}
                   onClick={() => onSelect(artwork)}
                 />
               )

@@ -39,7 +39,7 @@ export default function WorksSection() {
         <Lightbox
           artwork={activeArtwork}
           onClose={closeArtwork}
-          showDescription={selectedFilter === 'installation'}
+          showDescription={activeArtwork.category === 'installation'}
         />
       )}
     </Section>
