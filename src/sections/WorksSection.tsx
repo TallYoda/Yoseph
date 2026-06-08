@@ -29,6 +29,7 @@ export default function WorksSection() {
 
       <GalleryGrid
         artworks={visibleArtworks}
+        filter={selectedFilter}
         isFiltering={isFiltering}
         onSelect={openArtwork}
         showInstallationDetails={selectedFilter === 'installation'}

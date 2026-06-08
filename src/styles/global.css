@@ -339,19 +339,56 @@ textarea {
   text-decoration-thickness: 2px;
 }
 
-.works-grid {
+.works-categories {
   max-width: 1200px;
   margin: 0 auto;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.works-categories.is-filtering {
+  opacity: 0;
+  transform: scale(0.985);
+}
+
+.works-category-group + .works-category-group {
+  margin-top: 0.5rem;
+}
+
+.works-grid {
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: clamp(16px, 2vw, 28px);
   grid-auto-flow: dense;
-  transition: opacity 0.25s ease, transform 0.25s ease;
 }
 
-.works-grid.is-filtering {
-  opacity: 0;
-  transform: scale(0.985);
+.works-category-intro {
+  max-width: 68ch;
+  padding-top: 2.75rem;
+  margin: 0.25rem 0 1.75rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.works-category-intro--first {
+  padding-top: 0;
+  margin-top: 0;
+  border-top: none;
+}
+
+.works-category-intro h3 {
+  margin: 0 0 0.75rem;
+  font-size: clamp(1rem, 2.2vw, 1.2rem);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.works-category-intro p {
+  margin: 0;
+  color: rgba(0, 0, 0, 0.58);
+  font-size: 0.96rem;
+  font-weight: var(--weight-body);
+  line-height: 1.72;
 }
 
 .work-card {

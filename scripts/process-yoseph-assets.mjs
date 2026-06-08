@@ -65,6 +65,16 @@ async function readDescription(dir) {
   return {}
 }
 
+async function readCategoryIntro(dir) {
+  const filePath = path.join(dir, 'Description2.txt')
+  try {
+    const content = await fs.readFile(filePath, 'utf8')
+    return content.replace(/\s+/g, ' ').trim()
+  } catch {
+    return undefined
+  }
+}
+
 async function readInstallationDescriptions(dir) {
   for (const name of ['descriptions.txt', 'Description.txt', 'details.txt']) {
     const filePath = path.join(dir, name)
@@ -369,6 +379,38 @@ async function processCv() {
   console.log(`Updated CV: ${CV_OUTPUT_NAME}`)
 }
 
+async function processWorkSections() {
+  const digitalIntro = await readCategoryIntro(path.join(SOURCE, 'Digital Art'))
+  const installationIntro = await readCategoryIntro(path.join(SOURCE, 'installation'))
+
+  const sections = {
+    painting: { title: 'Paintings' },
+    digital: {
+      title: 'Digital Art',
+      ...(digitalIntro ? { description: digitalIntro } : {}),
+    },
+    installation: {
+      title: 'Installation Art',
+      ...(installationIntro ? { description: installationIntro } : {}),
+    },
+  }
+
+  const workSectionsTs = `import type { ArtworkCategory } from '../types/artwork'
+
+export type WorkSection = {
+  title: string
+  description?: string
+}
+
+export const workSections: Record<ArtworkCategory, WorkSection> = ${JSON.stringify(sections, null, 2)
+    .replace(/"([^"]+)":/g, '$1:')
+    .replace(/"/g, "'")} as Record<ArtworkCategory, WorkSection>
+`
+
+  await fs.writeFile(path.resolve('src/data/workSections.ts'), workSectionsTs)
+  console.log('Updated work section intros.')
+}
+
 async function processPortrait() {
   const portraitDir = path.join(SOURCE, 'portrait')
   const destDir = path.join(PUBLIC, 'about')
@@ -400,6 +442,7 @@ async function main() {
   await processHero()
   await processPortrait()
   await processCv()
+  await processWorkSections()
 
   await fs.writeFile(
     path.resolve('src/data/artworks.generated.ts'),
