@@ -12,39 +12,70 @@ function parseCssDuration(value: string, fallbackMs: number) {
   return fallbackMs
 }
 
+function preloadHeroImage(src: string) {
+  return new Promise<string>((resolve) => {
+    const image = new Image()
+    image.onload = () => resolve(src)
+    image.onerror = () => {
+      const fallback = src.replace('/thumbs/', '/')
+      if (fallback === src) {
+        resolve(src)
+        return
+      }
+
+      const fallbackImage = new Image()
+      fallbackImage.onload = () => resolve(fallback)
+      fallbackImage.onerror = () => resolve(fallback)
+      fallbackImage.src = fallback
+    }
+    image.src = src
+  })
+}
+
 function HeroImage({
   src,
   alt,
-  loading,
+  hidden,
 }: {
   src: string
   alt: string
-  loading?: 'eager' | 'lazy'
+  hidden?: boolean
 }) {
   return (
     <img
       src={src}
       alt={alt}
-      loading={loading}
       decoding="async"
       draggable={false}
-      onError={(event) => {
-        const target = event.currentTarget
-        if (target.dataset.fallback) return
-        const fallback = target.src.replace('/thumbs/', '/')
-        target.dataset.fallback = '1'
-        target.src = fallback
-      }}
+      aria-hidden={hidden || undefined}
     />
   )
 }
 
 export default function HeroMarquee({ images }: HeroMarqueeProps) {
+  const [isReady, setIsReady] = useState(false)
   const [activeIndex, setActiveIndex] = useState(0)
   const slideshowRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    if (images.length <= 1) return
+    if (images.length === 0) {
+      setIsReady(true)
+      return
+    }
+
+    let cancelled = false
+
+    Promise.all(images.map((image) => preloadHeroImage(image.src))).then(() => {
+      if (!cancelled) setIsReady(true)
+    })
+
+    return () => {
+      cancelled = true
+    }
+  }, [images])
+
+  useEffect(() => {
+    if (!isReady || images.length <= 1) return
 
     const root = slideshowRef.current
     if (!root) return
@@ -79,47 +110,56 @@ export default function HeroMarquee({ images }: HeroMarqueeProps) {
       media.removeEventListener('change', refresh)
       motion.removeEventListener('change', refresh)
     }
-  }, [images.length])
+  }, [images.length, isReady])
 
   if (images.length === 0) return null
 
   const loop = [...images, ...images]
 
   return (
-    <>
-      <div className="hero-marquee" aria-hidden="true">
-        <div className="hero-marquee-track">
-          {loop.map((image, index) => (
-            <figure key={`${image.src}-${index}`} className="hero-marquee-item">
-              <HeroImage
-                src={image.src}
-                alt={index < images.length ? image.alt : ''}
-                loading={index < images.length ? 'eager' : 'lazy'}
-              />
-            </figure>
-          ))}
+    <div className="hero-media">
+      {!isReady && (
+        <div className="hero-loading" aria-live="polite" aria-busy="true">
+          <span className="hero-loading-label">Loading</span>
         </div>
-      </div>
+      )}
 
-      <div
-        ref={slideshowRef}
-        className="hero-slideshow"
-        aria-live="polite"
-        aria-label="Featured paintings"
-      >
-        {images.map((image, index) => (
-          <figure
-            key={image.src}
-            className={`hero-slideshow-slide${index === activeIndex ? ' is-active' : ''}`}
+      {isReady && (
+        <>
+          <div className="hero-marquee" aria-hidden="true">
+            <div className="hero-marquee-track">
+              {loop.map((image, index) => (
+                <figure
+                  key={`${image.src}-${index}`}
+                  className="hero-marquee-item"
+                >
+                  <HeroImage
+                    src={image.src}
+                    alt={index < images.length ? image.alt : ''}
+                    hidden={index >= images.length}
+                  />
+                </figure>
+              ))}
+            </div>
+          </div>
+
+          <div
+            ref={slideshowRef}
+            className="hero-slideshow"
+            aria-live="polite"
+            aria-label="Featured paintings"
           >
-            <HeroImage
-              src={image.src}
-              alt={image.alt}
-              loading={index === 0 ? 'eager' : 'lazy'}
-            />
-          </figure>
-        ))}
-      </div>
-    </>
+            {images.map((image, index) => (
+              <figure
+                key={image.src}
+                className={`hero-slideshow-slide${index === activeIndex ? ' is-active' : ''}`}
+              >
+                <HeroImage src={image.src} alt={image.alt} />
+              </figure>
+            ))}
+          </div>
+        </>
+      )}
+    </div>
   )
 }

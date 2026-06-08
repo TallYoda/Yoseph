@@ -350,7 +350,7 @@ export const artworks: Artwork[] = [
     full: '/works/installation/Installation 01.jpg',
     colSpan: 2,
     rowSpan: 1,
-    description: 'the piece captures the physical and psychological toll of a life man defined by labor and emotional restraint.'
+    description: 'the piece captures the physical and psychological toll of a life of a man defined by labor and emotional restraint.'
   },
   {
     id: 'installation-installation-02-png',

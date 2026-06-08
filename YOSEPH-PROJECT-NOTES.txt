@@ -58,8 +58,7 @@ Mobile slideshow (.hero-slideshow) @media max-width 720px:
 
 CONTEXT OPTIMIZATION
 - .cursorignore excludes node_modules, dist, lock files, public binaries,
-  legacy public/sketches|artworks|Gallery|canva, artworks.generated.ts
-- Legacy folders still in git but unused — safe to delete later (~325MB)
+  artworks.generated.ts
 
 KEY FILES
 - src/data/artworks.ts → re-exports artworks.generated.ts
@@ -69,6 +68,4 @@ KEY FILES
 - src/styles/global.css — main styles
 
 NOT DONE / OPTIONAL
-- Push latest changes after installation/CV/mobile updates (if not pushed)
-- Delete legacy public/sketches, artworks, Gallery, canva from repo
-- Fix typo in Description.txt: "a life man" → "a life of a man" (content, not code)
+- Commit and push: legacy asset cleanup + installation description typo fix

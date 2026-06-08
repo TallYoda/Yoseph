@@ -243,8 +243,10 @@ function toTsArray(data, exportName, typeImport) {
   return `export const ${exportName} = ${body} as const\n`
 }
 
-const HERO_THUMB_WIDTH = 1400
-const HERO_THUMB_QUALITY = 85
+const HERO_FULL_WIDTH = 1400
+const HERO_FULL_QUALITY = 85
+const HERO_MARQUEE_WIDTH = 960
+const HERO_MARQUEE_QUALITY = 78
 
 async function processHero() {
   const sourcePath = path.join(SOURCE, 'hero')
@@ -276,12 +278,13 @@ async function processHero() {
 
     await sharp(sourceFile)
       .rotate()
-      .resize({ width: HERO_THUMB_WIDTH, withoutEnlargement: true })
-      .jpeg({ quality: HERO_THUMB_QUALITY, mozjpeg: true })
+      .resize({ width: HERO_FULL_WIDTH, withoutEnlargement: true })
+      .jpeg({ quality: HERO_FULL_QUALITY, mozjpeg: true })
       .toFile(destFile)
 
     await sharp(destFile)
-      .jpeg({ quality: HERO_THUMB_QUALITY, mozjpeg: true })
+      .resize({ width: HERO_MARQUEE_WIDTH, withoutEnlargement: true })
+      .jpeg({ quality: HERO_MARQUEE_QUALITY, mozjpeg: true })
       .toFile(thumbFile)
 
     const base = path.parse(image).name

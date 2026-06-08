@@ -27,5 +27,10 @@
   .hero-slideshow-slide:not(.is-active) {
     visibility: hidden;
   }
+
+  .hero-loading-label {
+    animation: none;
+    opacity: 0.6;
+  }
 }
 
