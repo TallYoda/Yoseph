@@ -1,16 +1,18 @@
-/* Display — Diatype Condensed substitute */
+/* Display — editorial serif headings */
 .font-display,
 .brand,
 .section-header h2,
 .about-block h3,
+.works-category-intro h3,
 .work-title,
 .lightbox-meta h3 {
   font-family: var(--font-display);
   font-weight: var(--weight-display);
-  letter-spacing: 0.03em;
+  font-style: normal;
+  letter-spacing: 0.01em;
 }
 
-/* UI — Monument Grotesk substitute */
+/* UI — restrained sans for navigation and controls */
 .font-ui,
 .nav,
 .filters button,
@@ -20,23 +22,35 @@
 .lightbox-loading,
 .cv-download,
 .form-actions button,
-.gallery-nav {
+.gallery-nav,
+.hero-loading-label {
   font-family: var(--font-ui);
-  letter-spacing: 0.04em;
+  font-style: normal;
+  letter-spacing: 0.06em;
 }
 
-/* Body — Alte Haas Grotesk substitute */
+/* Body — reading serif */
 .font-body,
 .excerpt,
 .section-header p,
 .about-block p,
 .artist-statement p,
 .work-meta,
+.work-description,
+.works-category-intro p,
+.work-installation-details .work-description,
 .cv-list,
 .lightbox-meta p,
+.lightbox-meta .lightbox-description,
 .site-footer,
 .contact-form input,
 .contact-form textarea,
 .form-feedback {
   font-family: var(--font-body);
+  font-style: normal;
+}
+
+/* Italic reserved for the artist statement voice only */
+.artist-statement p {
+  font-style: italic;
 }

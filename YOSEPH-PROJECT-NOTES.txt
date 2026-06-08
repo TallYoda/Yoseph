@@ -37,10 +37,11 @@ CV
 - File: public/cv/Yosef-Atskelewi-CV.png (was PDF, now PNG from art cv.png)
 - Constants: src/data/cv.ts (CV_FILE_URL, CV_FILE_FILENAME)
 
-TYPOGRAPHY (Tegene-inspired substitutes)
-- Barlow Condensed → display/headings
-- DM Sans → body
-- Space Grotesk → nav/UI/labels
+TYPOGRAPHY (editorial)
+- Cormorant Garamond → display/headings/brand
+- Source Serif 4 → body prose
+- Libre Franklin → nav/UI/labels
+- Italic only on artist statement (.artist-statement p)
 - vars in src/styles/variables.css, roles in typography.css
 
 HOME HERO CSS TWEAKS (src/styles/global.css)

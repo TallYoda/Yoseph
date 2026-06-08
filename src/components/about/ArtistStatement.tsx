@@ -3,28 +3,29 @@ export default function ArtistStatement() {
     <div className="about-block artist-statement">
       <h3>Artist Statement</h3>
       <p>
-        I believe human nature is fundamentally guided by emotion rather than
-        logic. Memory, perception, and even our daily decisions are shaped by
-        feeling, and my studio practice is built around this idea.
+        I believe that human nature is fundamentally guided by emotion rather
+        than logic. Our perceptions, memories, and most significant life
+        decisions are rooted in how we feel. My artistic practice is a direct
+        reflection of this belief, serving as a visceral bridge between my
+        internal emotional state and the external world.
       </p>
       <p>
-        I work across acrylic on canvas, digital painting, and found or
-        recycled materials. Each medium is selected for its emotional
-        resonance, allowing the work to hold both personal narrative and
-        collective human experience.
+        My work is an Intuitive response to the daily rhythm of life-the things
+        I see, hear, and read, I am drawn to the raw manifestations of the
+        human experience: the weight of sadness, the lightness of joy, and the
+        candid spontaneity of everyday moments. These fleeting feelings knock on
+        the door of my consciousness, demanding to be translated into visual
+        form.
       </p>
       <p>
-        In my digital abstractions, I use generative tools and manipulation to
-        explore fragmentation, transformation, and the unstable edges between
-        physical and virtual identity. These pieces function like visual
-        diaries layered with rhythm, texture, and code.
-      </p>
-      <p>
-        My goal is not to deliver fixed answers. I want the work to create a
-        wordless dialogue where viewers can move beyond analysis and enter the
-        shared, silent language of feeling.
+        To capture these complexities, I employ a versatile range of media,
+        including acrylic on canvas, digital painting, and the use of found,
+        recycled materials. Each material is chosen for its ability to echo a
+        specific emotional resonance. My goal is to create a wordless dialogue
+        with the viewer; I want those who encounter my work to move beyond
+        rational analysis and instead share in the silent, universal language
+        of the feelings that inspired the piece.
       </p>
     </div>
   )
 }
-

@@ -1,26 +1,27 @@
 /*
-  Type stack (aligned with Tegene Kunbi / Cargo):
-  - Barlow Condensed  → Diatype Condensed Variable (display, headings)
-  - DM Sans           → Alte Haas Grotesk (body, captions)
-  - Space Grotesk     → Monument Grotesk Variable (UI, nav, labels)
+  Editorial type stack:
+  - Cormorant Garamond → display headings, titles, brand
+  - Source Serif 4      → body prose, descriptions, lists
+  - Libre Franklin      → UI chrome (nav, labels, controls)
 */
 
 :root {
-  --font-display: 'Barlow Condensed', 'Arial Narrow', sans-serif;
-  --font-body: 'DM Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  --font-ui: 'Space Grotesk', 'DM Sans', sans-serif;
+  --font-display: 'Cormorant Garamond', 'Times New Roman', serif;
+  --font-body: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+  --font-ui: 'Libre Franklin', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 
   --weight-body: 400;
   --weight-body-medium: 500;
-  --weight-ui: 600;
-  --weight-display: 700;
+  --weight-ui: 500;
+  --weight-display: 500;
 
   font-family: var(--font-body);
   font-weight: var(--weight-body);
+  font-style: normal;
   color: rgba(0, 0, 0, 0.88);
   background-color: #ffffff;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   scroll-behavior: smooth;
-  line-height: 1.45;
+  line-height: 1.6;
 }
