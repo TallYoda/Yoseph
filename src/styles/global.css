@@ -107,31 +107,31 @@ textarea {
 }
 
 .hero {
-  min-height: calc(100vh - 80px);
+  --hero-image-height: min(calc(100dvh - 80px - 6.5rem), 920px);
+  min-height: calc(100dvh - 80px);
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  padding: 1.5rem 0 0;
+  padding: 0.75rem 0 0;
   gap: 0;
 }
 
 .hero-media {
-  --hero-media-height: min(68vh, 780px);
   flex: 1;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
   position: relative;
   width: 100%;
-  min-height: var(--hero-media-height);
+  min-height: var(--hero-image-height);
 }
 
 .hero-loading {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
   width: 100%;
-  min-height: var(--hero-media-height);
+  min-height: var(--hero-image-height);
 }
 
 .hero-loading-label {
@@ -159,8 +159,8 @@ textarea {
   overflow: hidden;
   flex: 1;
   display: flex;
-  align-items: center;
-  padding-top: 0.5rem;
+  align-items: flex-end;
+  padding-top: 0;
   position: absolute;
   inset: 0;
   mask-image: linear-gradient(
@@ -174,7 +174,7 @@ textarea {
 
 .hero-marquee-track {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   gap: var(--marquee-gap);
   width: max-content;
   animation: hero-marquee-scroll var(--marquee-duration) linear infinite;
@@ -190,11 +190,11 @@ textarea {
 
 .hero-marquee-item img {
   display: block;
-  height: min(68vh, 780px);
+  height: var(--hero-image-height);
   width: auto;
   max-width: calc(50vw - var(--marquee-gap));
   object-fit: contain;
-  object-position: center center;
+  object-position: center bottom;
   filter: contrast(1.04) saturate(1.06);
 }
 
@@ -211,24 +211,24 @@ textarea {
 .hero-slideshow {
   --slide-fade-duration: 0.9s;
   --slide-interval: 4s;
-  --slideshow-image-height: min(52vh, 520px);
+  --slideshow-image-height: min(calc(100dvh - 80px - 12rem), 520px);
   --slideshow-padding-x: 1.25rem;
   display: none;
   position: absolute;
   inset: 0;
   width: 100%;
   flex: 1;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
   min-height: var(--slideshow-image-height);
-  padding: 0.5rem var(--slideshow-padding-x) 0;
+  padding: 0 var(--slideshow-padding-x) 0;
 }
 
 .hero-slideshow-slide {
   position: absolute;
   inset: 0;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
   margin: 0;
   opacity: 0;
@@ -247,7 +247,7 @@ textarea {
   width: auto;
   max-width: 100%;
   object-fit: contain;
-  object-position: center center;
+  object-position: center bottom;
   filter: contrast(1.04) saturate(1.06);
 }
 
@@ -255,7 +255,7 @@ textarea {
   max-width: 760px;
   margin: 0 auto;
   text-align: center;
-  padding: 1.15rem clamp(0.5rem, 5%, 3rem) clamp(0.5rem, 6vw, 4rem);
+  padding: 0.85rem clamp(0.5rem, 5%, 3rem) clamp(0.5rem, 4vw, 2.5rem);
   flex-shrink: 0;
 }
 
@@ -963,13 +963,14 @@ textarea {
 
   /* ── Mobile hero spacing — tweak these values ── */
   .hero {
+    --hero-image-height: min(calc(100dvh - 72px - 11rem), 520px);
     --hero-mobile-padding-top: 0rem;
     padding-top: var(--hero-mobile-padding-top);
     min-height: calc(100dvh - 72px);
   }
 
   .hero-media {
-    --hero-media-height: min(52vh, 520px);
+    min-height: var(--hero-image-height);
   }
 
   .hero-marquee {
@@ -978,9 +979,9 @@ textarea {
 
   .hero-slideshow {
     display: flex;
-    --slideshow-image-height: min(52vh, 520px);
+    --slideshow-image-height: var(--hero-image-height);
     --slideshow-padding-top: 0rem;
-    --slideshow-padding-bottom: 0.15rem;
+    --slideshow-padding-bottom: 0;
     --slideshow-padding-x: 1.25rem;
     min-height: var(--slideshow-image-height);
     padding: var(--slideshow-padding-top) var(--slideshow-padding-x)
