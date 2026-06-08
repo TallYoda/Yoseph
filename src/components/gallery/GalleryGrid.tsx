@@ -17,6 +17,8 @@ const CATEGORY_ORDER: ArtworkCategory[] = [
   'installation',
 ]
 
+const SOLO_CATEGORIES = new Set<ArtworkCategory>(['painting', 'digital'])
+
 type CategoryGroup = {
   category: ArtworkCategory
   artworks: Artwork[]
@@ -73,11 +75,13 @@ export default function GalleryGrid({
             category={group.category}
             isFirst={groupIndex === 0}
           />
-          <div className="works-grid">
-            {group.artworks.map((artwork, index) => {
+          <div
+            className={`works-grid${SOLO_CATEGORIES.has(group.category) ? ' works-grid--solo' : ''}`}
+          >
+            {group.artworks.map((artwork) => {
+              const isSoloGroup = SOLO_CATEGORIES.has(group.category)
               const isInstallationGroup = group.category === 'installation'
-              const position = index % 5
-              const colSpan = isInstallationGroup ? 6 : position < 2 ? 3 : 2
+              const colSpan = isSoloGroup || isInstallationGroup ? 6 : 3
               const showDetails =
                 isInstallationGroup || showInstallationDetails
 

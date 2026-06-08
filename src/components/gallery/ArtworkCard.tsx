@@ -21,10 +21,13 @@ export default function ArtworkCard({
   const columnSpan = colSpan ?? artwork.colSpan
   const rowSpanValue = rowSpan ?? artwork.rowSpan
 
+  const isSoloWork =
+    artwork.category === 'painting' || artwork.category === 'digital'
+
   return (
     <button
       type="button"
-      className={`work-card${showInstallationDetails ? ' work-card--installation' : ''}`}
+      className={`work-card${showInstallationDetails ? ' work-card--installation' : ''}${isSoloWork ? ' work-card--solo' : ''}`}
       style={
         {
           '--col-span': columnSpan,
@@ -47,14 +50,14 @@ export default function ArtworkCard({
             loading="lazy"
             decoding="async"
           />
-          {!showInstallationDetails && (
-            <ArtworkOverlay
-              title={artwork.title}
-              medium={artwork.medium}
-              dimensions={artwork.dimensions}
-            />
-          )}
         </span>
+        {!showInstallationDetails && (
+          <ArtworkOverlay
+            title={artwork.title}
+            medium={artwork.medium}
+            dimensions={artwork.dimensions}
+          />
+        )}
         {showInstallationDetails && artwork.description && (
           <span className="work-installation-details">
             <span className="work-title">{artwork.title}</span>

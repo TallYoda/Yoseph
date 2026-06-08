@@ -350,20 +350,22 @@ textarea {
 }
 
 .works-category-group + .works-category-group {
-  margin-top: 0.5rem;
+  margin-top: clamp(2.5rem, 5vw, 4rem);
 }
 
 .works-grid {
+  --works-col-gap: clamp(24px, 2.5vw, 36px);
+  --works-row-gap: clamp(40px, 4.5vw, 72px);
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
-  gap: clamp(16px, 2vw, 28px);
-  grid-auto-flow: dense;
+  column-gap: var(--works-col-gap);
+  row-gap: var(--works-row-gap);
 }
 
 .works-category-intro {
   max-width: 68ch;
   padding-top: 2.75rem;
-  margin: 0.25rem 0 1.75rem;
+  margin: 0.25rem 0 clamp(2rem, 3vw, 2.75rem);
   border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 
@@ -399,6 +401,71 @@ textarea {
   grid-column: span var(--col-span, 3);
   grid-row: span var(--row-span, 1);
   overflow: hidden;
+}
+
+.works-grid--solo {
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: center;
+  max-width: min(100%, 680px);
+  margin-inline: auto;
+  --works-row-gap: clamp(56px, 10vh, 112px);
+}
+
+.work-card--solo {
+  grid-column: 1 / -1;
+  width: 100%;
+  overflow: visible;
+}
+
+.work-card--solo .work-media {
+  aspect-ratio: 1 / 1;
+  background: rgba(0, 0, 0, 0.03);
+}
+
+.work-card--solo .work-media img {
+  object-fit: contain;
+}
+
+.work-card--solo .work-card-layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.work-card--solo .work-overlay {
+  position: static;
+  opacity: 1;
+  transform: none;
+  background: transparent;
+  padding: clamp(0.85rem, 2vw, 1.1rem) 0 0;
+  text-align: center;
+  align-items: center;
+  width: 100%;
+  max-width: 36ch;
+}
+
+.work-card--solo .work-overlay .work-title {
+  color: rgba(0, 0, 0, 0.88);
+}
+
+.work-card--solo .work-overlay .work-meta {
+  color: rgba(0, 0, 0, 0.55);
+}
+
+.work-card:not(.work-card--installation):not(.work-card--solo) .work-card-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+}
+
+.work-card:not(.work-card--installation):not(.work-card--solo) .work-media,
+.work-card:not(.work-card--installation):not(.work-card--solo) .work-overlay {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.work-card:not(.work-card--installation):not(.work-card--solo) .work-overlay {
+  align-self: end;
 }
 
 .work-media {
@@ -459,6 +526,10 @@ textarea {
   letter-spacing: 0.04em;
   color: rgba(247, 245, 242, 0.88);
   font-weight: var(--weight-body-medium);
+}
+
+.work-card--installation + .work-card--installation {
+  margin-top: clamp(1rem, 2vw, 1.5rem);
 }
 
 .work-card--installation {
@@ -849,11 +920,11 @@ textarea {
     align-items: flex-start;
   }
 
-  .works-grid {
+  .works-grid:not(.works-grid--solo) {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
-  .work-card {
+  .work-card:not(.work-card--solo) {
     grid-column: span min(var(--col-span, 2), 2);
   }
 
@@ -923,7 +994,7 @@ textarea {
     padding-bottom: var(--hero-statement-padding-bottom);
   }
 
-  .works-grid {
+  .works-grid:not(.works-grid--solo) {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -940,7 +1011,7 @@ textarea {
     justify-self: center;
   }
 
-  .work-card {
+  .work-card:not(.work-card--solo):not(.work-card--installation) {
     grid-column: span 2;
   }
 
@@ -950,33 +1021,17 @@ textarea {
   }
 
   .work-installation-details {
-    padding: 0 0 1.25rem;
-  }
-
-  .work-media {
-    border-radius: 6px 6px 0 0;
+    text-align: center;
+    align-items: center;
+    padding: 0.85rem 0 1.25rem;
   }
 
   .work-card--installation .work-media {
     border-radius: 6px;
   }
 
-  .work-overlay {
-    position: static;
-    opacity: 1;
-    transform: none;
-    background: #f7f5f2;
-    color: #111111;
-    padding: 0.9rem 1rem 1.1rem;
-    pointer-events: none;
-  }
-
-  .work-title {
-    margin-bottom: 0.3rem;
-    color: #111111;
-  }
-
-  .work-meta {
-    color: #6b625c;
+  .work-card--solo .work-overlay {
+    max-width: 32ch;
+    padding-top: 0.85rem;
   }
 }
