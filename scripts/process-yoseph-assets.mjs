@@ -117,6 +117,37 @@ function titleFromFilename(filename) {
   return base.replace(/[_-]+/g, ' ').replace(/\s+/g, ' ').trim()
 }
 
+function formatPriority(ext) {
+  const normalized = ext.toLowerCase()
+  if (normalized === '.jpg' || normalized === '.jpeg') return 0
+  if (normalized === '.png') return 1
+  if (normalized === '.webp') return 2
+  return 99
+}
+
+function dedupeImagesByBasename(entries) {
+  const byBase = new Map()
+
+  for (const name of entries) {
+    const base = path.parse(name).name.toLowerCase()
+    const current = byBase.get(base)
+    if (
+      !current ||
+      formatPriority(path.extname(name)) < formatPriority(path.extname(current))
+    ) {
+      byBase.set(base, name)
+    }
+  }
+
+  return [...byBase.values()].sort((a, b) =>
+    a.localeCompare(b, undefined, { numeric: true }),
+  )
+}
+
+function thumbNameFor(filename) {
+  return filename.replace(/\.png$/i, '.jpg')
+}
+
 async function ensureDir(dir) {
   await fs.mkdir(dir, { recursive: true })
 }
@@ -124,7 +155,7 @@ async function ensureDir(dir) {
 async function copyAndThumb(sourceFile, destDir, thumbDir) {
   const filename = path.basename(sourceFile)
   const destFile = path.join(destDir, filename)
-  const thumbFile = path.join(thumbDir, filename.replace(/\.png$/i, '.jpg'))
+  const thumbFile = path.join(thumbDir, thumbNameFor(filename))
 
   await fs.copyFile(sourceFile, destFile)
 
@@ -162,10 +193,16 @@ async function processWorks() {
     const year = meta.year
 
     const entries = await fs.readdir(sourcePath)
-    const images = entries
+    const candidateImages = entries
       .filter((name) => IMAGE_EXT.has(path.extname(name)))
       .filter((name) => !source.skip.has(name))
-      .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }))
+    const images = dedupeImagesByBasename(candidateImages)
+    const skippedImages = candidateImages.filter((name) => !images.includes(name))
+
+    for (const image of skippedImages) {
+      await fs.unlink(path.join(destDir, image)).catch(() => {})
+      await fs.unlink(path.join(thumbDir, thumbNameFor(image))).catch(() => {})
+    }
 
     for (const image of images) {
       const sourceFile = path.join(sourcePath, image)

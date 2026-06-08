@@ -26,18 +26,6 @@ export const artworks: Artwork[] = [
     rowSpan: 1
   },
   {
-    id: 'paintings-2-png',
-    title: 'Untitled 2',
-    medium: 'Acrylic on Cardboard',
-    dimensions: '50 x 50 cm',
-    year: '2026',
-    category: 'painting',
-    thumbnail: '/works/paintings/thumbs/2.jpg',
-    full: '/works/paintings/2.png',
-    colSpan: 2,
-    rowSpan: 1
-  },
-  {
     id: 'paintings-5-jpg',
     title: 'Untitled 5',
     medium: 'Acrylic on Cardboard',
