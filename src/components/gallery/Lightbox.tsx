@@ -4,9 +4,14 @@ import type { Artwork } from '../../types/artwork'
 type LightboxProps = {
   artwork: Artwork
   onClose: () => void
+  showDescription?: boolean
 }
 
-export default function Lightbox({ artwork, onClose }: LightboxProps) {
+export default function Lightbox({
+  artwork,
+  onClose,
+  showDescription = false,
+}: LightboxProps) {
   const [fullSrc, setFullSrc] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(true)
 
@@ -63,6 +68,9 @@ export default function Lightbox({ artwork, onClose }: LightboxProps) {
               : artwork.medium}
           </p>
           {artwork.year && <p>{artwork.year}</p>}
+          {showDescription && artwork.description && (
+            <p className="lightbox-description">{artwork.description}</p>
+          )}
         </div>
       </div>
     </div>

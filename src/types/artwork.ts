@@ -6,6 +6,7 @@ export type Artwork = {
   medium: string
   dimensions?: string
   year?: string
+  description?: string
   category: ArtworkCategory
   available?: boolean
   thumbnail: string

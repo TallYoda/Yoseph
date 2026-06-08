@@ -5,12 +5,14 @@ type GalleryGridProps = {
   artworks: Artwork[]
   isFiltering: boolean
   onSelect: (artwork: Artwork) => void
+  showInstallationDetails?: boolean
 }
 
 export default function GalleryGrid({
   artworks,
   isFiltering,
   onSelect,
+  showInstallationDetails = false,
 }: GalleryGridProps) {
   return (
     <div className={`works-grid ${isFiltering ? 'is-filtering' : ''}`}>
@@ -24,6 +26,7 @@ export default function GalleryGrid({
           artwork={artwork}
           colSpan={colSpan}
           rowSpan={1}
+          showInstallationDetails={showInstallationDetails}
           onClick={() => onSelect(artwork)}
         />
         )

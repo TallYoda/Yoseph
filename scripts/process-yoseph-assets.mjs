@@ -65,6 +65,51 @@ async function readDescription(dir) {
   return {}
 }
 
+async function readInstallationDescriptions(dir) {
+  for (const name of ['descriptions.txt', 'Description.txt', 'details.txt']) {
+    const filePath = path.join(dir, name)
+    try {
+      const content = await fs.readFile(filePath, 'utf8')
+      return parseInstallationDescriptions(content)
+    } catch {
+      // try next filename
+    }
+  }
+  return {}
+}
+
+function parseInstallationDescriptions(content) {
+  const descriptions = {}
+  let currentKey = null
+  let currentText = []
+
+  const flush = () => {
+    if (currentKey) {
+      descriptions[currentKey] = currentText.join(' ').replace(/\s+/g, ' ').trim()
+    }
+  }
+
+  for (const line of content.split(/\r?\n/)) {
+    const match = line.match(/^Installation\s+(\d+)\s*-\s*(.*)$/i)
+    if (match) {
+      flush()
+      currentKey = match[1].padStart(2, '0')
+      const rest = match[2].trim()
+      currentText = rest ? [rest] : []
+    } else if (currentKey && line.trim()) {
+      currentText.push(line.trim())
+    }
+  }
+
+  flush()
+  return descriptions
+}
+
+function installationNumberFromFilename(filename) {
+  const match = path.parse(filename).name.match(/Installation\s+(\d+)/i)
+  return match ? match[1].padStart(2, '0') : null
+}
+
 function titleFromFilename(filename) {
   const base = path.parse(filename).name
   if (/^\d+(\.\d+)?$/.test(base)) return `Untitled ${base}`
@@ -108,6 +153,10 @@ async function processWorks() {
     await ensureDir(thumbDir)
 
     const meta = await readDescription(sourcePath)
+    const installationDescriptions =
+      source.category === 'installation'
+        ? await readInstallationDescriptions(sourcePath)
+        : {}
     const medium = meta.medium ?? (source.category === 'installation' ? 'Installation Art' : 'Painting')
     const dimensions = meta.size
     const year = meta.year
@@ -123,7 +172,13 @@ async function processWorks() {
       const { filename, thumbName } = await copyAndThumb(sourceFile, destDir, thumbDir)
       const id = `${source.slug}-${filename}`.toLowerCase().replace(/[^a-z0-9.]+/g, '-').replace(/\./g, '-')
 
-      artworks.push({
+      const pieceNumber = installationNumberFromFilename(filename)
+      const description =
+        pieceNumber && installationDescriptions[pieceNumber]
+          ? installationDescriptions[pieceNumber]
+          : undefined
+
+      const entry = {
         id,
         title: titleFromFilename(filename),
         medium,
@@ -134,7 +189,13 @@ async function processWorks() {
         full: `/works/${source.slug}/${filename}`,
         colSpan: 2,
         rowSpan: 1,
-      })
+      }
+
+      if (description) {
+        entry.description = description
+      }
+
+      artworks.push(entry)
     }
   }
 
@@ -250,7 +311,7 @@ export function getHeroMarqueeImages() {
   console.log(`Updated ${marquee.length} hero marquee images.`)
 }
 
-const CV_OUTPUT_NAME = 'Yosef-Atskelewi-CV-2026.pdf'
+const CV_OUTPUT_NAME = 'Yosef-Atskelewi-CV.png'
 
 async function processCv() {
   const sourceDir = path.join(SOURCE, 'cv')
@@ -258,13 +319,13 @@ async function processCv() {
   await ensureDir(destDir)
 
   const entries = await fs.readdir(sourceDir)
-  const pdf = entries.find((name) => /\.pdf$/i.test(name))
-  if (!pdf) {
-    console.warn('No PDF found in cv folder.')
+  const png = entries.find((name) => /\.png$/i.test(name))
+  if (!png) {
+    console.warn('No PNG found in cv folder.')
     return
   }
 
-  await fs.copyFile(path.join(sourceDir, pdf), path.join(destDir, CV_OUTPUT_NAME))
+  await fs.copyFile(path.join(sourceDir, png), path.join(destDir, CV_OUTPUT_NAME))
   console.log(`Updated CV: ${CV_OUTPUT_NAME}`)
 }
 

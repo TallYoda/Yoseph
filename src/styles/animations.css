@@ -19,5 +19,13 @@
     margin: 0 auto;
     padding: 0 1rem;
   }
+
+  .hero-slideshow-slide {
+    transition: none;
+  }
+
+  .hero-slideshow-slide:not(.is-active) {
+    visibility: hidden;
+  }
 }
 

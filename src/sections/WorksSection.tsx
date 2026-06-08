@@ -31,10 +31,15 @@ export default function WorksSection() {
         artworks={visibleArtworks}
         isFiltering={isFiltering}
         onSelect={openArtwork}
+        showInstallationDetails={selectedFilter === 'installation'}
       />
 
       {activeArtwork && (
-        <Lightbox artwork={activeArtwork} onClose={closeArtwork} />
+        <Lightbox
+          artwork={activeArtwork}
+          onClose={closeArtwork}
+          showDescription={selectedFilter === 'installation'}
+        />
       )}
     </Section>
   )

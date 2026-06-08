@@ -167,11 +167,54 @@ textarea {
   }
 }
 
+/* Mobile hero slideshow (hidden on desktop — see @media max-width 720px) */
+.hero-slideshow {
+  --slide-fade-duration: 0.9s;
+  --slide-interval: 4s;
+  --slideshow-image-height: min(52vh, 520px);
+  --slideshow-padding-x: 1.25rem;
+  display: none;
+  position: relative;
+  width: 100%;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--slideshow-image-height);
+  padding: 0.5rem var(--slideshow-padding-x) 0;
+}
+
+.hero-slideshow-slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  opacity: 0;
+  transition: opacity var(--slide-fade-duration) ease-in-out;
+  pointer-events: none;
+}
+
+.hero-slideshow-slide.is-active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.hero-slideshow-slide img {
+  display: block;
+  height: var(--slideshow-image-height);
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  object-position: center center;
+  filter: contrast(1.04) saturate(1.06);
+}
+
 .hero-statement {
   max-width: 760px;
   margin: 0 auto;
   text-align: center;
-  padding: 1.25rem clamp(1.5rem, 5%, 3rem) clamp(2.5rem, 6vw, 4rem);
+  padding: 1.15rem clamp(0.5rem, 5%, 3rem) clamp(0.5rem, 6vw, 4rem);
   flex-shrink: 0;
 }
 
@@ -341,6 +384,39 @@ textarea {
   letter-spacing: 0.04em;
   color: rgba(247, 245, 242, 0.88);
   font-weight: var(--weight-body-medium);
+}
+
+.work-card--installation {
+  overflow: visible;
+}
+
+.work-installation-details {
+  display: block;
+  padding: 1rem 0 1.75rem;
+  text-align: left;
+}
+
+.work-installation-details .work-title {
+  display: block;
+  color: rgba(0, 0, 0, 0.88);
+  margin-bottom: 0.65rem;
+}
+
+.work-description {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  line-height: 1.75;
+  color: rgba(0, 0, 0, 0.65);
+  font-weight: var(--weight-body);
+}
+
+.lightbox-meta .lightbox-description {
+  margin-top: 0.85rem;
+  line-height: 1.75;
+  color: rgba(0, 0, 0, 0.65);
+  font-weight: var(--weight-body);
+  font-size: 0.95rem;
 }
 
 .about-grid {
@@ -727,22 +803,33 @@ textarea {
     display: flex;
   }
 
+  /* ── Mobile hero spacing — tweak these values ── */
   .hero {
-    padding-top: 4.5rem;
+    --hero-mobile-padding-top: 0rem;
+    padding-top: var(--hero-mobile-padding-top);
     min-height: calc(100dvh - 72px);
   }
 
   .hero-marquee {
-    --marquee-duration: 140s;
+    display: none;
   }
 
-  .hero-marquee-item img {
-    height: min(58vh, 640px);
-    max-width: calc(50vw - var(--marquee-gap));
+  .hero-slideshow {
+    display: flex;
+    --slideshow-image-height: min(52vh, 520px);
+    --slideshow-padding-top: 0rem;
+    --slideshow-padding-bottom: 0.15rem;
+    --slideshow-padding-x: 1.25rem;
+    min-height: var(--slideshow-image-height);
+    padding: var(--slideshow-padding-top) var(--slideshow-padding-x)
+      var(--slideshow-padding-bottom);
   }
 
   .hero-statement {
-    padding-bottom: 2rem;
+    --hero-statement-padding-top: 0%;
+    --hero-statement-padding-bottom: 2rem;
+    padding-top: var(--hero-statement-padding-top);
+    padding-bottom: var(--hero-statement-padding-bottom);
   }
 
   .works-grid {

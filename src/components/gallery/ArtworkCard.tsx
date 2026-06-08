@@ -8,6 +8,7 @@ type ArtworkCardProps = {
   onClick: () => void
   colSpan?: number
   rowSpan?: number
+  showInstallationDetails?: boolean
 }
 
 export default function ArtworkCard({
@@ -15,6 +16,7 @@ export default function ArtworkCard({
   onClick,
   colSpan,
   rowSpan,
+  showInstallationDetails = false,
 }: ArtworkCardProps) {
   const columnSpan = colSpan ?? artwork.colSpan
   const rowSpanValue = rowSpan ?? artwork.rowSpan
@@ -22,7 +24,7 @@ export default function ArtworkCard({
   return (
     <button
       type="button"
-      className="work-card"
+      className={`work-card${showInstallationDetails ? ' work-card--installation' : ''}`}
       style={
         {
           '--col-span': columnSpan,
@@ -38,13 +40,20 @@ export default function ArtworkCard({
           loading="lazy"
           decoding="async"
         />
-        <ArtworkOverlay
-          title={artwork.title}
-          medium={artwork.medium}
-          dimensions={artwork.dimensions}
-        />
+        {!showInstallationDetails && (
+          <ArtworkOverlay
+            title={artwork.title}
+            medium={artwork.medium}
+            dimensions={artwork.dimensions}
+          />
+        )}
       </span>
+      {showInstallationDetails && artwork.description && (
+        <span className="work-installation-details">
+          <span className="work-title">{artwork.title}</span>
+          <span className="work-description">{artwork.description}</span>
+        </span>
+      )}
     </button>
   )
 }
-

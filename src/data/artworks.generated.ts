@@ -342,23 +342,25 @@ export const artworks: Artwork[] = [
     rowSpan: 1
   },
   {
-    id: 'installation-img-0191-jpg',
-    title: 'Work 0191',
+    id: 'installation-installation-01-jpg',
+    title: 'Installation 01',
     medium: 'Installation Art',
     category: 'installation',
-    thumbnail: '/works/installation/thumbs/IMG_0191.JPG',
-    full: '/works/installation/IMG_0191.JPG',
+    thumbnail: '/works/installation/thumbs/Installation 01.jpg',
+    full: '/works/installation/Installation 01.jpg',
     colSpan: 2,
-    rowSpan: 1
+    rowSpan: 1,
+    description: 'the piece captures the physical and psychological toll of a life man defined by labor and emotional restraint.'
   },
   {
-    id: 'installation-photo-2026-04-15-07-41-52-jpg',
-    title: 'photo 2026 04 15 07 41 52',
+    id: 'installation-installation-02-png',
+    title: 'Installation 02',
     medium: 'Installation Art',
     category: 'installation',
-    thumbnail: '/works/installation/thumbs/photo_2026-04-15_07-41-52.jpg',
-    full: '/works/installation/photo_2026-04-15_07-41-52.jpg',
+    thumbnail: '/works/installation/thumbs/Installation 02.jpg',
+    full: '/works/installation/Installation 02.png',
     colSpan: 2,
-    rowSpan: 1
+    rowSpan: 1,
+    description: 'This body of work serves as a dual exploration of masculine struggle, juxtaposing the internal burden of the individual against the external structures of society. By placing weathered, organic materials alongside rigid, industrial forms'
   }
 ] as Artwork[]

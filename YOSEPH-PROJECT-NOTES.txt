@@ -1,0 +1,74 @@
+YOSEPH PORTFOLIO — SESSION NOTES (bare essentials)
+================================================
+
+REPO & DEPLOY
+- GitHub: https://github.com/TallYoda/Yoseph (branch main)
+- Vercel: default Vite build (npm run build → dist)
+- vercel.json: SPA rewrites skip paths with file extensions (.png, .pdf, etc.)
+
+SITE STRUCTURE (routes)
+- /           Home — hero only (marquee desktop / fade slideshow mobile)
+- /works      Paintings + digital + installation (filters)
+- /about      Bio + portrait
+- /cv         CV list + download link
+- /contact    Contact form
+- /exhibitions Exhibition photos
+
+ASSET SOURCE (local)
+- C:\Users\15879\Documents\Abel\Availables\yoseph
+- Regenerate: npm run process-assets
+  Copies images, thumbs, hero marquee data, CV, portrait, artworks.generated.ts
+
+ASSET FOLDERS → public/
+- Paintings, Paintings2 → public/works/paintings*
+- Digital Art → public/works/digital-art
+- installation → public/works/installation (+ Description.txt per piece)
+- hero → public/hero (hero-01/02/03.jpg) — HOME MARQUEE ONLY
+- exhibition → public/exhibitions
+- portrait → public/about
+- cv (PNG) → public/cv/Yosef-Atskelewi-CV.png
+
+WORKS FILTERS
+- All | Digital Art | Installation Art
+- Installation filter ONLY: shows description text under each piece + in lightbox
+- Descriptions parsed from installation/Description.txt ("Installation 01 - ...")
+
+CV
+- File: public/cv/Yosef-Atskelewi-CV.png (was PDF, now PNG from art cv.png)
+- Constants: src/data/cv.ts (CV_FILE_URL, CV_FILE_FILENAME)
+
+TYPOGRAPHY (Tegene-inspired substitutes)
+- Barlow Condensed → display/headings
+- DM Sans → body
+- Space Grotesk → nav/UI/labels
+- vars in src/styles/variables.css, roles in typography.css
+
+HOME HERO CSS TWEAKS (src/styles/global.css)
+Desktop marquee (.hero-marquee):
+  --marquee-gap, --marquee-duration
+  .hero-marquee-item img height/max-width
+
+Mobile slideshow (.hero-slideshow) @media max-width 720px:
+  --slide-fade-duration, --slide-interval
+  --slideshow-image-height, --slideshow-padding-x
+  Mobile-only block ~line 773:
+    --hero-mobile-padding-top
+    --slideshow-padding-top/bottom/x
+    --hero-statement-padding-top/bottom
+
+CONTEXT OPTIMIZATION
+- .cursorignore excludes node_modules, dist, lock files, public binaries,
+  legacy public/sketches|artworks|Gallery|canva, artworks.generated.ts
+- Legacy folders still in git but unused — safe to delete later (~325MB)
+
+KEY FILES
+- src/data/artworks.ts → re-exports artworks.generated.ts
+- scripts/process-yoseph-assets.mjs — asset pipeline
+- src/components/home/HeroMarquee.tsx — desktop marquee + mobile slideshow
+- src/sections/WorksSection.tsx — works + filters
+- src/styles/global.css — main styles
+
+NOT DONE / OPTIONAL
+- Push latest changes after installation/CV/mobile updates (if not pushed)
+- Delete legacy public/sketches, artworks, Gallery, canva from repo
+- Fix typo in Description.txt: "a life man" → "a life of a man" (content, not code)

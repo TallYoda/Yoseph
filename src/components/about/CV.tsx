@@ -1,6 +1,6 @@
 import {
-  CV_PDF_FILENAME,
-  CV_PDF_URL,
+  CV_FILE_FILENAME,
+  CV_FILE_URL,
   education,
   exhibitions,
   prizes,
@@ -57,12 +57,12 @@ export default function CV() {
       </div>
       <a
         className="cv-download"
-        href={CV_PDF_URL}
-        download={CV_PDF_FILENAME}
+        href={CV_FILE_URL}
+        download={CV_FILE_FILENAME}
         target="_blank"
         rel="noopener noreferrer"
       >
-        Check out my CV
+        Download my CV
       </a>
     </div>
   )
