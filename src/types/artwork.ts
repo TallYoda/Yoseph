@@ -8,7 +8,7 @@ export type Artwork = {
   year?: string
   description?: string
   category: ArtworkCategory
-  available?: boolean
+  available: boolean
   thumbnail: string
   full: string
   colSpan: number

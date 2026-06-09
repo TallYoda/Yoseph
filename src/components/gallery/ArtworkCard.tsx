@@ -37,6 +37,9 @@ export default function ArtworkCard({
 
         <div className="card-body">
           <h3 className="card-title">{artwork.title}</h3>
+          {artwork.available && (
+            <p className="card-availability">Available for sale</p>
+          )}
           {meta && <p className="card-text">{meta}</p>}
           {showInstallationDetails && artwork.description && (
             <p className="card-description">{artwork.description}</p>

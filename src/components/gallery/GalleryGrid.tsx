@@ -26,6 +26,10 @@ function buildCategoryGroups(
   artworks: Artwork[],
   filter: FilterValue,
 ): CategoryGroup[] {
+  if (filter === 'forSale') {
+    return artworks.length > 0 ? [{ category: 'painting', artworks }] : []
+  }
+
   if (filter === 'all') {
     const groups: CategoryGroup[] = []
 
@@ -41,12 +45,7 @@ function buildCategoryGroups(
     return groups
   }
 
-  const categoryMap: Record<Exclude<FilterValue, 'all'>, ArtworkCategory> = {
-    digital: 'digital',
-    installation: 'installation',
-  }
-
-  const category = categoryMap[filter]
+  const category = filter === 'digital' ? 'digital' : 'installation'
   if (artworks.length === 0) return []
 
   return [{ category, artworks }]
@@ -60,26 +59,30 @@ export default function GalleryGrid({
   showInstallationDetails = false,
 }: GalleryGridProps) {
   const groups = buildCategoryGroups(artworks, filter)
+  const hideCategoryIntros = filter === 'forSale'
 
   return (
     <div className={`works-categories ${isFiltering ? 'is-filtering' : ''}`}>
       {groups.map((group, groupIndex) => (
         <section
-          key={group.category}
+          key={hideCategoryIntros ? 'for-sale' : group.category}
           className="works-category-group"
-          aria-label={group.category}
+          aria-label={hideCategoryIntros ? 'Available for sale' : group.category}
         >
-          <WorksCategoryIntro
-            category={group.category}
-            isFirst={groupIndex === 0}
-          />
+          {!hideCategoryIntros && (
+            <WorksCategoryIntro
+              category={group.category}
+              isFirst={groupIndex === 0}
+            />
+          )}
           <div className="portfolio-grid">
             {group.artworks.map((artwork) => (
               <ArtworkCard
                 key={artwork.id}
                 artwork={artwork}
                 showInstallationDetails={
-                  group.category === 'installation' || showInstallationDetails
+                  !hideCategoryIntros &&
+                  (group.category === 'installation' || showInstallationDetails)
                 }
                 onClick={() => onSelect(artwork)}
               />

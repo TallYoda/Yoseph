@@ -232,6 +232,7 @@ async function processWorks() {
         dimensions,
         year,
         category: source.category,
+        available: true,
         thumbnail: `/works/${source.slug}/thumbs/${thumbName}`,
         full: `/works/${source.slug}/${filename}`,
         colSpan: 2,

@@ -1,7 +1,19 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import type { Artwork, ArtworkCategory } from '../types/artwork'
 
-export type FilterValue = 'all' | 'digital' | 'installation'
+export type FilterValue =
+  | 'all'
+  | 'digital'
+  | 'installation'
+  | 'forSale'
+
+const CATEGORY_FILTERS: Record<
+  Exclude<FilterValue, 'all' | 'forSale'>,
+  ArtworkCategory
+> = {
+  digital: 'digital',
+  installation: 'installation',
+}
 
 export function useFilter(artworks: Artwork[]) {
   const [selectedFilter, setSelectedFilter] = useState<FilterValue>('all')
@@ -14,13 +26,12 @@ export function useFilter(artworks: Artwork[]) {
       return artworks
     }
 
-    const categoryMap: Record<Exclude<FilterValue, 'all'>, ArtworkCategory> = {
-      digital: 'digital',
-      installation: 'installation',
+    if (renderFilter === 'forSale') {
+      return artworks.filter((artwork) => artwork.available)
     }
 
     return artworks.filter(
-      (artwork) => artwork.category === categoryMap[renderFilter]
+      (artwork) => artwork.category === CATEGORY_FILTERS[renderFilter],
     )
   }, [artworks, renderFilter])
 

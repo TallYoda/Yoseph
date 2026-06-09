@@ -316,7 +316,7 @@ textarea {
 
 .portfolio-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
   margin-bottom: 2rem;
 }
@@ -346,19 +346,16 @@ textarea {
   border: none;
   padding: 0;
   background-color: #f8f8f8;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: block;
   overflow: hidden;
-  min-height: 200px;
-  max-height: 600px;
+  height: 300px;
   cursor: pointer;
 }
 
 .portfolio-item img {
   width: 100%;
-  height: auto;
-  object-fit: contain;
+  height: 100%;
+  object-fit: cover;
   display: block;
 }
 
@@ -372,6 +369,15 @@ textarea {
   font-size: 1.15rem;
   line-height: 1.2;
   color: rgba(0, 0, 0, 0.88);
+}
+
+.portfolio-item .card-availability {
+  margin: 0 0 0.35rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(0, 0, 0, 0.45);
 }
 
 .portfolio-item .card-text {
@@ -410,6 +416,18 @@ textarea {
 
 .portfolio-item--installation {
   grid-column: 1 / -1;
+}
+
+.portfolio-item--installation .card-img-wrapper {
+  height: auto;
+  min-height: 300px;
+  max-height: 600px;
+}
+
+.portfolio-item--installation img {
+  height: auto;
+  max-height: 600px;
+  object-fit: contain;
 }
 
 .work-title {
@@ -785,7 +803,14 @@ textarea {
 
 @media (max-width: 991px) {
   .portfolio-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .portfolio-grid {
+    grid-template-columns: 1fr;
     gap: 1.5rem;
   }
 }
@@ -832,11 +857,6 @@ textarea {
   .hero {
     padding: 5rem clamp(1.25rem, 4vw, 2rem) 3.5rem;
     min-height: 65vh;
-  }
-
-  .portfolio-grid {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
   }
 
   .works {

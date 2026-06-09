@@ -29,6 +29,13 @@ export default function FilterBar({ selected, onChange }: FilterBarProps) {
       >
         Installation Art
       </button>
+      <button
+        type="button"
+        className={selected === 'forSale' ? 'is-active' : ''}
+        onClick={() => onChange('forSale')}
+      >
+        Available for Sale
+      </button>
     </div>
   )
 }
