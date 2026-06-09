@@ -1,70 +1,55 @@
-import type { CSSProperties } from 'react'
 import type { Artwork } from '../../types/artwork'
 import { getArtworkAlt } from '../../utils/image'
-import ArtworkOverlay from './ArtworkOverlay'
 
 type ArtworkCardProps = {
   artwork: Artwork
   onClick: () => void
-  colSpan?: number
-  rowSpan?: number
   showInstallationDetails?: boolean
 }
 
 export default function ArtworkCard({
   artwork,
   onClick,
-  colSpan,
-  rowSpan,
   showInstallationDetails = false,
 }: ArtworkCardProps) {
-  const columnSpan = colSpan ?? artwork.colSpan
-  const rowSpanValue = rowSpan ?? artwork.rowSpan
-
-  const isSoloWork =
-    artwork.category === 'painting' || artwork.category === 'digital'
+  const meta = [artwork.medium, artwork.dimensions, artwork.year]
+    .filter(Boolean)
+    .join(' · ')
 
   return (
-    <button
-      type="button"
-      className={`work-card${showInstallationDetails ? ' work-card--installation' : ''}${isSoloWork ? ' work-card--solo' : ''}`}
-      style={
-        {
-          '--col-span': columnSpan,
-          '--row-span': rowSpanValue,
-        } as CSSProperties
-      }
-      onClick={onClick}
+    <div
+      className={`portfolio-item${showInstallationDetails ? ' portfolio-item--installation' : ''}`}
     >
-      <span
-        className={
-          showInstallationDetails
-            ? 'work-installation-layout'
-            : 'work-card-layout'
-        }
-      >
-        <span className="work-media">
+      <div className="card">
+        <button
+          type="button"
+          className="card-img-wrapper"
+          onClick={onClick}
+          aria-label={`View ${artwork.title}`}
+        >
           <img
             src={artwork.thumbnail}
             alt={getArtworkAlt(artwork)}
             loading="lazy"
             decoding="async"
           />
-        </span>
-        {!showInstallationDetails && (
-          <ArtworkOverlay
-            title={artwork.title}
-            medium={artwork.medium}
-            dimensions={artwork.dimensions}
-          />
-        )}
-        {showInstallationDetails && artwork.description && (
-          <span className="work-installation-details">
-            <span className="work-title">{artwork.title}</span>
-            <span className="work-description">{artwork.description}</span>
-          </span>
-        )}
-      </span>
-    </button>
+        </button>
+
+        <div className="card-body">
+          <h3 className="card-title">{artwork.title}</h3>
+          {meta && <p className="card-text">{meta}</p>}
+          {showInstallationDetails && artwork.description && (
+            <p className="card-description">{artwork.description}</p>
+          )}
+          <button
+            type="button"
+            className="portfolio-view-btn"
+            onClick={onClick}
+          >
+            View work
+          </button>
+        </div>
+      </div>
+    </div>
   )
 }

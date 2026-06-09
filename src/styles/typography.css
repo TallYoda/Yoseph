@@ -4,6 +4,7 @@
 .section-header h2,
 .about-block h3,
 .works-category-intro h3,
+.portfolio-item .card-title,
 .work-title,
 .lightbox-meta h3 {
   font-family: var(--font-display);
@@ -29,12 +30,30 @@
   letter-spacing: 0.06em;
 }
 
+/* Hero — display + body voice on dark field */
+.hero .eyebrow {
+  font-family: var(--font-ui);
+  font-weight: var(--weight-ui);
+}
+
+.hero h1 {
+  font-family: var(--font-display);
+  font-weight: var(--weight-display);
+}
+
+.hero .lede {
+  font-family: var(--font-body);
+  font-weight: var(--weight-body);
+}
+
 /* Body — reading serif */
 .font-body,
-.excerpt,
 .section-header p,
 .about-block p,
 .artist-statement p,
+.portfolio-item .card-text,
+.portfolio-item .card-description,
+.portfolio-view-btn,
 .work-meta,
 .work-description,
 .works-category-intro p,

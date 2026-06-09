@@ -10,20 +10,19 @@ import Lightbox from '../components/gallery/Lightbox'
 export default function WorksSection() {
   const { selectedFilter, setFilter, isFiltering, visibleArtworks } =
     useFilter(artworks)
-  const { activeArtwork, openArtwork, closeArtwork } = useLightbox()
+  const { activeArtwork, openArtwork, closeArtwork, goNext, goPrev, canNavigate } =
+    useLightbox(visibleArtworks)
 
   useScrollLock(Boolean(activeArtwork))
 
   return (
     <Section id="works" className="works">
-      <div className="section-header">
-        <div>
-          <h2>Works</h2>
-          <p>
-            Paintings, digital works, and installation pieces. Select a category
-            to explore each body of work.
-          </p>
-        </div>
+      <div className="works-header">
+        <h2>Works</h2>
+        <p>
+          Paintings, digital works, and installation pieces. Select a category to
+          explore each body of work.
+        </p>
         <FilterBar selected={selectedFilter} onChange={setFilter} />
       </div>
 
@@ -39,6 +38,9 @@ export default function WorksSection() {
         <Lightbox
           artwork={activeArtwork}
           onClose={closeArtwork}
+          onNext={goNext}
+          onPrev={goPrev}
+          showNavigation={canNavigate}
           showDescription={activeArtwork.category === 'installation'}
         />
       )}
