@@ -5,12 +5,14 @@ type ArtworkCardProps = {
   artwork: Artwork
   onClick: () => void
   showInstallationDetails?: boolean
+  installationPair?: boolean
 }
 
 export default function ArtworkCard({
   artwork,
   onClick,
   showInstallationDetails = false,
+  installationPair = false,
 }: ArtworkCardProps) {
   const meta = [artwork.medium, artwork.dimensions, artwork.year]
     .filter(Boolean)
@@ -18,7 +20,13 @@ export default function ArtworkCard({
 
   return (
     <div
-      className={`portfolio-item${showInstallationDetails ? ' portfolio-item--installation' : ''}`}
+      className={[
+        'portfolio-item',
+        showInstallationDetails ? 'portfolio-item--installation' : '',
+        installationPair ? 'portfolio-item--installation-pair' : '',
+      ]
+        .filter(Boolean)
+        .join(' ')}
     >
       <div className="card">
         <button

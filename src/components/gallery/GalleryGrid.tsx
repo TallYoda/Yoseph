@@ -76,17 +76,26 @@ export default function GalleryGrid({
             />
           )}
           <div className="portfolio-grid">
-            {group.artworks.map((artwork) => (
-              <ArtworkCard
-                key={artwork.id}
-                artwork={artwork}
-                showInstallationDetails={
-                  !hideCategoryIntros &&
-                  (group.category === 'installation' || showInstallationDetails)
-                }
-                onClick={() => onSelect(artwork)}
-              />
-            ))}
+            {group.artworks.map((artwork, artworkIndex) => {
+              const isInstallationGroup = group.category === 'installation'
+              const showDetails =
+                !hideCategoryIntros &&
+                (isInstallationGroup || showInstallationDetails)
+              const isInstallationPair =
+                isInstallationGroup &&
+                group.artworks.length >= 2 &&
+                artworkIndex >= group.artworks.length - 2
+
+              return (
+                <ArtworkCard
+                  key={artwork.id}
+                  artwork={artwork}
+                  showInstallationDetails={showDetails}
+                  installationPair={isInstallationPair}
+                  onClick={() => onSelect(artwork)}
+                />
+              )
+            })}
           </div>
         </section>
       ))}

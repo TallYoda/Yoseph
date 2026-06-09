@@ -414,17 +414,17 @@ textarea {
   color: #ffffff;
 }
 
-.portfolio-item--installation {
+.portfolio-item--installation:not(.portfolio-item--installation-pair) {
   grid-column: 1 / -1;
 }
 
-.portfolio-item--installation .card-img-wrapper {
+.portfolio-item--installation:not(.portfolio-item--installation-pair) .card-img-wrapper {
   height: auto;
   min-height: 300px;
   max-height: 600px;
 }
 
-.portfolio-item--installation img {
+.portfolio-item--installation:not(.portfolio-item--installation-pair) img {
   height: auto;
   max-height: 600px;
   object-fit: contain;
