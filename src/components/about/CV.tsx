@@ -7,53 +7,35 @@ import {
   projects,
 } from '../../data/cv'
 
+type CvGroupProps = {
+  title: string
+  items: { year: string; text: string }[]
+}
+
+function CvGroup({ title, items }: CvGroupProps) {
+  return (
+    <div className="cv-group">
+      <p className="cv-title">{title}</p>
+      <ul className="cv-list">
+        {items.map((item) => (
+          <li key={item.text}>
+            <span className="cv-year">{item.year}</span>
+            <span className="cv-entry">{item.text}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+
 export default function CV() {
   return (
-    <div className="about-block">
-      <h3>CV</h3>
-      <div className="cv-group">
-        <p className="cv-title">Exhibitions</p>
-        <ul className="cv-list">
-          {exhibitions.map((item) => (
-            <li key={item.text}>
-              <span>{item.year}</span>
-              {item.text}
-            </li>
-          ))}
-        </ul>
-      </div>
-      <div className="cv-group">
-        <p className="cv-title">Education</p>
-        <ul className="cv-list">
-          {education.map((item) => (
-            <li key={item.text}>
-              <span>{item.year}</span>
-              {item.text}
-            </li>
-          ))}
-        </ul>
-      </div>
-      <div className="cv-group">
-        <p className="cv-title">Projects</p>
-        <ul className="cv-list">
-          {projects.map((item) => (
-            <li key={item.text}>
-              <span>{item.year}</span>
-              {item.text}
-            </li>
-          ))}
-        </ul>
-      </div>
-      <div className="cv-group">
-        <p className="cv-title">Prizes</p>
-        <ul className="cv-list">
-          {prizes.map((item) => (
-            <li key={item.text}>
-              <span>{item.year}</span>
-              {item.text}
-            </li>
-          ))}
-        </ul>
+    <div className="cv-layout">
+      <div className="cv-grid">
+        <CvGroup title="Exhibitions" items={exhibitions} />
+        <CvGroup title="Education" items={education} />
+        <CvGroup title="Projects" items={projects} />
+        <CvGroup title="Prizes" items={prizes} />
       </div>
       <a
         className="cv-download"
@@ -62,9 +44,8 @@ export default function CV() {
         target="_blank"
         rel="noopener noreferrer"
       >
-        Download my CV
+        Download CV
       </a>
     </div>
   )
 }
-

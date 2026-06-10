@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 
-const exhibitionsClass = ({ isActive }: { isActive: boolean }) =>
+const navClass = ({ isActive }: { isActive: boolean }) =>
   isActive ? 'is-active' : undefined
 
 export default function Header() {
@@ -27,25 +27,21 @@ export default function Header() {
           <span />
         </button>
         <nav className={`nav ${isOpen ? 'is-open' : ''}`}>
-          <a href="/#works" onClick={handleClose}>
+          <NavLink to="/works" className={navClass} onClick={handleClose}>
             Works
-          </a>
-          <a href="/#about" onClick={handleClose}>
+          </NavLink>
+          <NavLink to="/about" className={navClass} onClick={handleClose}>
             About
-          </a>
-          <a href="/#cv" onClick={handleClose}>
+          </NavLink>
+          <NavLink to="/cv" className={navClass} onClick={handleClose}>
             CV
-          </a>
-          <NavLink
-            to="/exhibitions"
-            className={exhibitionsClass}
-            onClick={handleClose}
-          >
+          </NavLink>
+          <NavLink to="/exhibitions" className={navClass} onClick={handleClose}>
             Exhibitions
           </NavLink>
-          <a href="/#contact" onClick={handleClose}>
+          <NavLink to="/contact" className={navClass} onClick={handleClose}>
             Contact
-          </a>
+          </NavLink>
           <a
             href="https://yosef-atskelewi-portfolio.my.canva.site/"
             target="_blank"

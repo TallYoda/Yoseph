@@ -18,6 +18,7 @@
 .nav,
 .filters button,
 .cv-title,
+.section-eyebrow,
 .contact-form label,
 .lightbox-close,
 .lightbox-loading,
@@ -48,8 +49,11 @@
 
 /* Body — reading serif */
 .font-body,
+.section-eyebrow,
 .section-header p,
 .about-block p,
+.about-meta,
+.about-emphasis,
 .artist-statement p,
 .portfolio-item .card-availability,
 .portfolio-item .card-text,
@@ -59,18 +63,20 @@
 .work-description,
 .works-category-intro p,
 .work-installation-details .work-description,
+.cv-year,
+.cv-entry,
 .cv-list,
 .lightbox-meta p,
 .lightbox-meta .lightbox-description,
+.footer-name,
+.footer-nav a,
+.footer-contact a,
+.footer-social a,
+.footer-copy,
 .site-footer,
 .contact-form input,
 .contact-form textarea,
 .form-feedback {
   font-family: var(--font-body);
   font-style: normal;
-}
-
-/* Italic reserved for the artist statement voice only */
-.artist-statement p {
-  font-style: italic;
 }
