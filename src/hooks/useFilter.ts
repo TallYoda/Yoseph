@@ -27,7 +27,9 @@ export function useFilter(artworks: Artwork[]) {
     }
 
     if (renderFilter === 'forSale') {
-      return artworks.filter((artwork) => artwork.available)
+      return artworks.filter(
+        (artwork) => artwork.available && artwork.category !== 'installation',
+      )
     }
 
     return artworks.filter(

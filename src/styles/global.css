@@ -1068,7 +1068,7 @@ textarea {
   max-width: 1100px;
   margin: 0 auto 2rem;
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: clamp(1.5rem, 3vw, 2.5rem);
   align-items: start;
 }
@@ -1089,40 +1089,47 @@ textarea {
   line-height: 1.5;
 }
 
-.footer-nav,
-.footer-contact,
-.footer-social {
+.footer-contact {
   display: flex;
   flex-direction: column;
   gap: 0.55rem;
-}
-
-.footer-nav a,
-.footer-contact a,
-.footer-social a {
-  color: rgba(247, 245, 242, 0.72);
-  font-family: var(--font-ui);
-  font-size: 0.8rem;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  transition: color 0.2s ease, opacity 0.2s ease;
-}
-
-.footer-nav a:hover,
-.footer-nav a:focus-visible,
-.footer-contact a:hover,
-.footer-contact a:focus-visible,
-.footer-social a:hover,
-.footer-social a:focus-visible {
-  color: #ffffff;
-  opacity: 1;
+  align-items: flex-end;
+  text-align: right;
 }
 
 .footer-contact a {
-  text-transform: none;
-  letter-spacing: 0.02em;
+  color: rgba(247, 245, 242, 0.72);
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
   font-weight: 500;
+  letter-spacing: 0.02em;
+  transition: color 0.2s ease, opacity 0.2s ease;
+}
+
+.footer-contact-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.footer-contact-link svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  fill: currentColor;
+  opacity: 0.85;
+  transition: opacity 0.2s ease;
+}
+
+.footer-contact-link:hover svg,
+.footer-contact-link:focus-visible svg {
+  opacity: 1;
+}
+
+.footer-contact a:hover,
+.footer-contact a:focus-visible {
+  color: #ffffff;
+  opacity: 1;
 }
 
 .footer-copy {
@@ -1242,9 +1249,9 @@ textarea {
     text-align: center;
   }
 
-  .footer-nav,
   .footer-contact {
     align-items: center;
+    text-align: center;
   }
 
   .works-category-intro--featured {
