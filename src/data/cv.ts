@@ -1,6 +1,6 @@
 /** Served from public/cv — URL must stay extension-based for Vercel static hosting */
-export const CV_FILE_URL = '/cv/Yosef-Atskelewi-CV.png'
-export const CV_FILE_FILENAME = 'Yosef-Atskelewi-CV.png'
+export const CV_FILE_URL = '/cv/Yosef-Atskelewi-CV.pdf'
+export const CV_FILE_FILENAME = 'Yosef-Atskelewi-CV.pdf'
 
 export const exhibitions = [
   {

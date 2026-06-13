@@ -371,7 +371,7 @@ export function getHeroMarqueeImages() {
   console.log(`Updated ${marquee.length} hero marquee images.`)
 }
 
-const CV_OUTPUT_NAME = 'Yosef-Atskelewi-CV.png'
+const CV_OUTPUT_NAME = 'Yosef-Atskelewi-CV.pdf'
 
 async function processCv() {
   const sourceDir = path.join(SOURCE, 'cv')
@@ -379,13 +379,13 @@ async function processCv() {
   await ensureDir(destDir)
 
   const entries = await fs.readdir(sourceDir)
-  const png = entries.find((name) => /\.png$/i.test(name))
-  if (!png) {
-    console.warn('No PNG found in cv folder.')
+  const pdf = entries.find((name) => /\.pdf$/i.test(name))
+  if (!pdf) {
+    console.warn('No PDF found in cv folder.')
     return
   }
 
-  await fs.copyFile(path.join(sourceDir, png), path.join(destDir, CV_OUTPUT_NAME))
+  await fs.copyFile(path.join(sourceDir, pdf), path.join(destDir, CV_OUTPUT_NAME))
   console.log(`Updated CV: ${CV_OUTPUT_NAME}`)
 }
 
