@@ -23,7 +23,7 @@ export function useFilter(artworks: Artwork[]) {
 
   const visibleArtworks = useMemo(() => {
     if (renderFilter === 'all') {
-      return artworks
+      return artworks.filter((artwork) => artwork.category !== 'installation')
     }
 
     if (renderFilter === 'forSale') {

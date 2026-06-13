@@ -480,9 +480,11 @@ textarea {
 
 .portfolio-item .card-title {
   margin: 0 0 0.5rem;
-  font-size: 1.15rem;
-  line-height: 1.2;
+  font-size: clamp(0.95rem, 1.8vw, 1.1rem);
+  line-height: 1.38;
   color: rgba(0, 0, 0, 0.88);
+  text-wrap: balance;
+  letter-spacing: 0.01em;
 }
 
 .portfolio-item .card-availability {
@@ -748,7 +750,7 @@ textarea {
 
 .cv-list li {
   display: grid;
-  grid-template-columns: minmax(4.75rem, auto) 1fr;
+  grid-template-columns: minmax(5.75rem, auto) 1fr;
   gap: 0.85rem;
   padding: 0.65rem 0 0.65rem 1.1rem;
   border-left: 2px solid rgba(0, 0, 0, 0.14);
@@ -774,8 +776,8 @@ textarea {
 .cv-year {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 0.92rem;
-  line-height: 1.4;
+  font-size: 1.28rem;
+  line-height: 1.35;
   color: rgba(0, 0, 0, 0.92);
   letter-spacing: 0.02em;
 }
@@ -885,8 +887,10 @@ textarea {
   color: #2f6e56;
 }
 
-.form-feedback.error {
-  color: #9a3b3b;
+.form-feedback.info {
+  color: rgba(0, 0, 0, 0.68);
+  max-width: 42ch;
+  line-height: 1.65;
 }
 
 .lightbox {
@@ -972,9 +976,11 @@ textarea {
 }
 
 .lightbox-meta h3 {
-  margin: 0 0 0.4rem;
-  font-size: 1.6rem;
-  line-height: 1.12;
+  margin: 0 0 0.5rem;
+  font-size: clamp(1.25rem, 2.5vw, 1.55rem);
+  line-height: 1.28;
+  text-wrap: balance;
+  letter-spacing: 0.01em;
 }
 
 .lightbox-meta p {

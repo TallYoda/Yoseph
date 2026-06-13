@@ -11,11 +11,7 @@ type GalleryGridProps = {
   showInstallationDetails?: boolean
 }
 
-const CATEGORY_ORDER: ArtworkCategory[] = [
-  'painting',
-  'digital',
-  'installation',
-]
+const ALL_CATEGORY_ORDER: ArtworkCategory[] = ['painting', 'digital']
 
 type CategoryGroup = {
   category: ArtworkCategory
@@ -33,7 +29,7 @@ function buildCategoryGroups(
   if (filter === 'all') {
     const groups: CategoryGroup[] = []
 
-    for (const category of CATEGORY_ORDER) {
+    for (const category of ALL_CATEGORY_ORDER) {
       const categoryArtworks = artworks.filter(
         (artwork) => artwork.category === category,
       )

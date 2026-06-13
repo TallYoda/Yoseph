@@ -1,37 +1,19 @@
 import type { FormEvent } from 'react'
-import { useRef, useState } from 'react'
-import { sendContactForm } from '../../utils/emailjs'
+import { useState } from 'react'
+
+const UNDER_CONSTRUCTION_MESSAGE =
+  'The contact form is still under construction. Please email teklemedhen555@gmail.com or call +251 924 356 917 in the meantime.'
 
 export default function ContactForm() {
-  const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>(
-    'idle'
-  )
   const [feedback, setFeedback] = useState('')
-  const formRef = useRef<HTMLFormElement | null>(null)
 
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    if (!formRef.current) return
-
-    setStatus('sending')
-    setFeedback('')
-    try {
-      await sendContactForm(formRef.current)
-      setStatus('success')
-      setFeedback('Message sent. Thank you for reaching out.')
-      formRef.current.reset()
-    } catch (error) {
-      setStatus('error')
-      setFeedback(
-        error instanceof Error
-          ? error.message
-          : 'Unable to send right now. Please try again soon.'
-      )
-    }
+    setFeedback(UNDER_CONSTRUCTION_MESSAGE)
   }
 
   return (
-    <form ref={formRef} className="contact-form" onSubmit={handleSubmit}>
+    <form className="contact-form" onSubmit={handleSubmit}>
       <label>
         <span>Name</span>
         <input type="text" name="user_name" required />
@@ -45,12 +27,9 @@ export default function ContactForm() {
         <textarea name="message" rows={6} required />
       </label>
       <div className="form-actions">
-        <button type="submit" disabled={status === 'sending'}>
-          {status === 'sending' ? 'Sending...' : 'Send message'}
-        </button>
-        {feedback && <p className={`form-feedback ${status}`}>{feedback}</p>}
+        <button type="submit">Send message</button>
+        {feedback && <p className="form-feedback info">{feedback}</p>}
       </div>
     </form>
   )
 }
-

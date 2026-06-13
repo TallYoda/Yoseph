@@ -1,0 +1,169 @@
+YOSEPH PORTFOLIO — SCRIPTS & ASSET REFERENCE
+=============================================
+Last updated: 2026
+
+QUICK COMMANDS (npm)
+--------------------
+npm install
+  Install dependencies (run once after clone).
+
+npm run dev
+  Start local dev server (Vite). Open the URL shown in the terminal.
+
+npm run build
+  Type-check (tsc) then production build → dist/
+  Use before deploy or to verify the site compiles.
+
+npm run preview
+  Serve the production build locally from dist/
+
+npm run process-assets
+  MAIN ASSET PIPELINE — run after adding/changing images or titles.
+  Executes: node scripts/process-yoseph-assets.mjs
+
+
+ASSET SOURCE FOLDER
+-------------------
+Default path (edit SOURCE in process-yoseph-assets.mjs if needed):
+  C:\Users\15879\Documents\Abel\Availables\yoseph
+
+The pipeline reads from this folder and writes into public/ plus src/data/.
+
+
+SCRIPT FILES (scripts/)
+-----------------------
+
+1) process-yoseph-assets.mjs  (npm run process-assets)
+   Master pipeline. In order it:
+   - Copies work images + generates thumbnails (Sharp, 600px wide JPEG)
+   - Builds src/data/artworks.generated.ts
+   - Copies exhibition photos → public/exhibitions/
+   - Builds src/data/exhibitions.ts
+   - Processes hero folder → public/hero/ + src/data/heroMarquee.ts
+   - Copies portrait → public/about/
+   - Copies CV PNG → public/cv/Yosef-Atskelewi-CV.png
+   - Regenerates src/data/workSections.ts (category intro text)
+
+2) artwork-titles.mjs
+   Bilingual title map keyed by "slug/filename-stem".
+   Example: 'paintings/8' → 'የመረጋጋት ጥልቀት · Depths of Serenity'
+   Format: Amharic · English (middle dot separator)
+   Used by process-yoseph-assets.mjs via resolveArtworkTitle().
+   Edit this file when adding titles — do NOT hand-edit artworks.generated.ts
+
+3) painting-display-order.mjs
+   Curated gallery order for paintings only.
+   PAINTINGS_DISPLAY_ORDER      → main Paintings folder (filename stems)
+   PAINTINGS2_DISPLAY_ORDER     → 30×30 Paintings2 folder
+   Digital / installation order stays filename-sorted unless changed in script.
+
+
+SOURCE FOLDER → PUBLIC OUTPUT
+-----------------------------
+
+Paintings/          → public/works/paintings/       (category: painting)
+Paintings2/         → public/works/paintings2/      (category: painting, 30×30)
+Digital Art/        → public/works/digital-art/     (category: digital)
+installation/       → public/works/installation/    (category: installation)
+exhibition/         → public/exhibitions/
+hero/               → public/hero/                  (hero-01.jpg, etc.)
+portrait/           → public/about/portrait.jpg
+cv/                 → public/cv/Yosef-Atskelewi-CV.png  (any .png in cv/)
+
+Each works folder gets a thumbs/ subfolder with JPEG thumbnails.
+
+
+HOW TO ADD A NEW ARTWORK
+------------------------
+
+STEP 1 — Place the image in the correct source folder
+  Painting (large):     Paintings/          e.g. 20.jpg
+  Painting (30×30):     Paintings2/         e.g. 8.jpg
+  Digital:              Digital Art/        e.g. IMG_0191.JPG
+  Installation:         installation/       e.g. Installation 03.jpg
+
+  Supported formats: .jpg .jpeg .png .webp (case insensitive)
+  If both 2.jpg and 2.png exist, .jpg wins (dedupe by basename).
+
+STEP 2 — Optional metadata (Description.txt in same folder)
+  Key: value lines, e.g.:
+    medium: Acrylic on canvas
+    size: 80 x 100 cm
+    year: 2025
+
+  Installation descriptions (installation/Description.txt only):
+    Installation 01 - Title line
+    Body text continues on following lines...
+    Installation 02 - Next piece
+
+  Category intro blurbs (Digital Art or installation):
+    Description2.txt — plain paragraph shown on Works page
+
+STEP 3 — Set the title (scripts/artwork-titles.mjs)
+  Add an entry:
+    'paintings/20': bilingual('Amharic title', 'English title'),
+    'digital-art/IMG_0191': bilingual('...', '...'),
+
+  English-only example:
+    'paintings/1.1': englishOnly('Memories of the Threshold'),
+
+STEP 4 — Gallery order (paintings only, optional)
+  Edit scripts/painting-display-order.mjs
+  Add filename stem to PAINTINGS_DISPLAY_ORDER or PAINTINGS2_DISPLAY_ORDER
+
+STEP 5 — Regenerate
+  npm run process-assets
+
+STEP 6 — Verify locally
+  npm run dev
+  Check /works — grid, titles, lightbox, filters
+
+STEP 7 — Deploy
+  git add → commit → push (Vercel auto-builds on push)
+
+
+GENERATED FILES (do not edit by hand)
+-------------------------------------
+src/data/artworks.generated.ts   ← artwork list (from process-assets)
+src/data/exhibitions.ts          ← exhibition photos
+src/data/heroMarquee.ts          ← hero image list
+src/data/workSections.ts         ← Digital / Installation intro text
+
+Hand-edited data files:
+src/data/artworks.ts             re-exports artworks.generated.ts
+src/data/cv.ts                   CV download URL constants
+src/data/workSections.ts         overwritten by pipeline if Description2.txt exists
+
+
+SITE ROUTES
+-----------
+/              Home (full-viewport hero)
+/works         Works gallery + filters
+/about         Biography + artist statement
+/cv            CV timeline + download
+/contact       Contact form (EmailJS)
+/exhibitions   Exhibition photos
+
+
+WORKS FILTERS (UI)
+------------------
+All              Paintings + digital (installation hidden)
+Digital Art      Digital only
+Installation Art Installation only (+ descriptions visible)
+Available for Sale  All available pieces (available: true on every work)
+
+
+TROUBLESHOOTING
+---------------
+• New image not showing → run npm run process-assets
+• Wrong title → fix artwork-titles.mjs, re-run process-assets
+• Wrong order (paintings) → fix painting-display-order.mjs, re-run
+• CV download 404 on Vercel → file must live in public/cv/ with extension;
+  vercel.json only rewrites extensionless paths to index.html
+• Source folder not found → check SOURCE path in process-yoseph-assets.mjs
+
+
+INSTAGRAM (navbar)
+------------------
+Header icon links to: https://www.instagram.com/atsklewi
+Edit: src/components/layout/Header.tsx

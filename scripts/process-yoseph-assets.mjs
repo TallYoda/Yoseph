@@ -1,6 +1,8 @@
 import fs from 'node:fs/promises'
 import path from 'node:path'
 import sharp from 'sharp'
+import { resolveArtworkTitle } from './artwork-titles.mjs'
+import { sortImagesForSource } from './painting-display-order.mjs'
 
 const SOURCE = 'C:\\Users\\15879\\Documents\\Abel\\Availables\\yoseph'
 const PUBLIC = path.resolve('public')
@@ -206,7 +208,10 @@ async function processWorks() {
     const candidateImages = entries
       .filter((name) => IMAGE_EXT.has(path.extname(name)))
       .filter((name) => !source.skip.has(name))
-    const images = dedupeImagesByBasename(candidateImages)
+    const images = sortImagesForSource(
+      source.slug,
+      dedupeImagesByBasename(candidateImages),
+    )
     const skippedImages = candidateImages.filter((name) => !images.includes(name))
 
     for (const image of skippedImages) {
@@ -227,7 +232,11 @@ async function processWorks() {
 
       const entry = {
         id,
-        title: titleFromFilename(filename),
+        title: resolveArtworkTitle(
+          source.slug,
+          filename,
+          titleFromFilename(filename),
+        ),
         medium,
         dimensions,
         year,

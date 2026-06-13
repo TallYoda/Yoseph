@@ -2,8 +2,21 @@ import type { Artwork } from '../types/artwork'
 
 export const artworks: Artwork[] = [
   {
+    id: 'paintings-8-jpg',
+    title: 'የመረጋጋት ጥልቀት · Depths of Serenity',
+    medium: 'Acrylic on Cardboard',
+    dimensions: '50 x 50 cm',
+    year: '2026',
+    category: 'painting',
+    available: true,
+    thumbnail: '/works/paintings/thumbs/8.jpg',
+    full: '/works/paintings/8.jpg',
+    colSpan: 2,
+    rowSpan: 1
+  },
+  {
     id: 'paintings-1-1-jpg',
-    title: 'Untitled 1.1',
+    title: 'Memories of the Threshold',
     medium: 'Acrylic on Cardboard',
     dimensions: '50 x 50 cm',
     year: '2026',
@@ -15,21 +28,34 @@ export const artworks: Artwork[] = [
     rowSpan: 1
   },
   {
-    id: 'paintings-2-jpg',
-    title: 'Untitled 2',
+    id: 'paintings-16-jpg',
+    title: 'ረቂቅ አበባ · Abstract Blossom',
     medium: 'Acrylic on Cardboard',
     dimensions: '50 x 50 cm',
     year: '2026',
     category: 'painting',
     available: true,
-    thumbnail: '/works/paintings/thumbs/2.jpg',
-    full: '/works/paintings/2.jpg',
+    thumbnail: '/works/paintings/thumbs/16.jpg',
+    full: '/works/paintings/16.jpg',
+    colSpan: 2,
+    rowSpan: 1
+  },
+  {
+    id: 'paintings-14-jpg',
+    title: 'የጨለማው ቀይ ጩኸት · The Red Cry of the Dark',
+    medium: 'Acrylic on Cardboard',
+    dimensions: '50 x 50 cm',
+    year: '2026',
+    category: 'painting',
+    available: true,
+    thumbnail: '/works/paintings/thumbs/14.jpg',
+    full: '/works/paintings/14.jpg',
     colSpan: 2,
     rowSpan: 1
   },
   {
     id: 'paintings-5-jpg',
-    title: 'Untitled 5',
+    title: 'የምሽት ቅኝት · Nocturnal Rhythms',
     medium: 'Acrylic on Cardboard',
     dimensions: '50 x 50 cm',
     year: '2026',
@@ -54,21 +80,8 @@ export const artworks: Artwork[] = [
     rowSpan: 1
   },
   {
-    id: 'paintings-8-jpg',
-    title: 'Untitled 8',
-    medium: 'Acrylic on Cardboard',
-    dimensions: '50 x 50 cm',
-    year: '2026',
-    category: 'painting',
-    available: true,
-    thumbnail: '/works/paintings/thumbs/8.jpg',
-    full: '/works/paintings/8.jpg',
-    colSpan: 2,
-    rowSpan: 1
-  },
-  {
     id: 'paintings-9-jpg',
-    title: 'Untitled 9',
+    title: 'የንጋት ትንፋሽ · Breath of the Morning',
     medium: 'Acrylic on Cardboard',
     dimensions: '50 x 50 cm',
     year: '2026',
@@ -80,34 +93,21 @@ export const artworks: Artwork[] = [
     rowSpan: 1
   },
   {
-    id: 'paintings-10-jpg',
-    title: 'Untitled 10',
+    id: 'paintings-15-jpg',
+    title: 'የብርሃን ስንጥቅ · Crack of Light',
     medium: 'Acrylic on Cardboard',
     dimensions: '50 x 50 cm',
     year: '2026',
     category: 'painting',
     available: true,
-    thumbnail: '/works/paintings/thumbs/10.jpg',
-    full: '/works/paintings/10.jpg',
-    colSpan: 2,
-    rowSpan: 1
-  },
-  {
-    id: 'paintings-11-jpg',
-    title: 'Untitled 11',
-    medium: 'Acrylic on Cardboard',
-    dimensions: '50 x 50 cm',
-    year: '2026',
-    category: 'painting',
-    available: true,
-    thumbnail: '/works/paintings/thumbs/11.jpg',
-    full: '/works/paintings/11.jpg',
+    thumbnail: '/works/paintings/thumbs/15.jpg',
+    full: '/works/paintings/15.jpg',
     colSpan: 2,
     rowSpan: 1
   },
   {
     id: 'paintings-12-jpg',
-    title: 'Untitled 12',
+    title: 'የጥላዎች ዳንስ · Dance of Shadows',
     medium: 'Acrylic on Cardboard',
     dimensions: '50 x 50 cm',
     year: '2026',
@@ -120,7 +120,7 @@ export const artworks: Artwork[] = [
   },
   {
     id: 'paintings-13-jpg',
-    title: 'Untitled 13',
+    title: 'የጫካው ምስጢር · Wild Secrets',
     medium: 'Acrylic on Cardboard',
     dimensions: '50 x 50 cm',
     year: '2026',
@@ -132,47 +132,21 @@ export const artworks: Artwork[] = [
     rowSpan: 1
   },
   {
-    id: 'paintings-14-jpg',
-    title: 'Untitled 14',
+    id: 'paintings-11-jpg',
+    title: 'ረቂቅ አበባ · Abstract Blossom',
     medium: 'Acrylic on Cardboard',
     dimensions: '50 x 50 cm',
     year: '2026',
     category: 'painting',
     available: true,
-    thumbnail: '/works/paintings/thumbs/14.jpg',
-    full: '/works/paintings/14.jpg',
-    colSpan: 2,
-    rowSpan: 1
-  },
-  {
-    id: 'paintings-15-jpg',
-    title: 'Untitled 15',
-    medium: 'Acrylic on Cardboard',
-    dimensions: '50 x 50 cm',
-    year: '2026',
-    category: 'painting',
-    available: true,
-    thumbnail: '/works/paintings/thumbs/15.jpg',
-    full: '/works/paintings/15.jpg',
-    colSpan: 2,
-    rowSpan: 1
-  },
-  {
-    id: 'paintings-16-jpg',
-    title: 'Untitled 16',
-    medium: 'Acrylic on Cardboard',
-    dimensions: '50 x 50 cm',
-    year: '2026',
-    category: 'painting',
-    available: true,
-    thumbnail: '/works/paintings/thumbs/16.jpg',
-    full: '/works/paintings/16.jpg',
+    thumbnail: '/works/paintings/thumbs/11.jpg',
+    full: '/works/paintings/11.jpg',
     colSpan: 2,
     rowSpan: 1
   },
   {
     id: 'paintings-17-jpg',
-    title: 'Untitled 17',
+    title: 'የተመጣጠነ ፍልሚያ · A Balanced Conflict',
     medium: 'Acrylic on Cardboard',
     dimensions: '50 x 50 cm',
     year: '2026',
@@ -185,7 +159,7 @@ export const artworks: Artwork[] = [
   },
   {
     id: 'paintings-18-jpg',
-    title: 'Untitled 18',
+    title: 'የማለዳ ትግል · The Morning Struggle',
     medium: 'Acrylic on Cardboard',
     dimensions: '50 x 50 cm',
     year: '2026',
@@ -197,8 +171,21 @@ export const artworks: Artwork[] = [
     rowSpan: 1
   },
   {
+    id: 'paintings-2-jpg',
+    title: 'ከትውስታ በስተጀርባ · Beyond Memory',
+    medium: 'Acrylic on Cardboard',
+    dimensions: '50 x 50 cm',
+    year: '2026',
+    category: 'painting',
+    available: true,
+    thumbnail: '/works/paintings/thumbs/2.jpg',
+    full: '/works/paintings/2.jpg',
+    colSpan: 2,
+    rowSpan: 1
+  },
+  {
     id: 'paintings-19-jpg',
-    title: 'Untitled 19',
+    title: 'የውስጥ ብልጭታ · Inner Sparks',
     medium: 'Acrylic on Cardboard',
     dimensions: '50 x 50 cm',
     year: '2026',
@@ -210,8 +197,21 @@ export const artworks: Artwork[] = [
     rowSpan: 1
   },
   {
+    id: 'paintings-10-jpg',
+    title: 'የእርጥበት ስሜት · The Moist Rhythm',
+    medium: 'Acrylic on Cardboard',
+    dimensions: '50 x 50 cm',
+    year: '2026',
+    category: 'painting',
+    available: true,
+    thumbnail: '/works/paintings/thumbs/10.jpg',
+    full: '/works/paintings/10.jpg',
+    colSpan: 2,
+    rowSpan: 1
+  },
+  {
     id: 'paintings2-1-png',
-    title: 'Untitled 1',
+    title: 'የቀለም ድምፅ · Chromatic Resonance',
     medium: 'Acrylic on Cardboard',
     dimensions: '30 x 30 cm',
     year: '2026',
@@ -223,8 +223,21 @@ export const artworks: Artwork[] = [
     rowSpan: 1
   },
   {
+    id: 'paintings2-7-jpg',
+    title: 'የጭጋግ መስመሮች · Fog Lines',
+    medium: 'Acrylic on Cardboard',
+    dimensions: '30 x 30 cm',
+    year: '2026',
+    category: 'painting',
+    available: true,
+    thumbnail: '/works/paintings2/thumbs/7.jpg',
+    full: '/works/paintings2/7.jpg',
+    colSpan: 2,
+    rowSpan: 1
+  },
+  {
     id: 'paintings2-4-jpg',
-    title: 'Untitled 4',
+    title: 'ስምምነት · Resonance',
     medium: 'Acrylic on Cardboard',
     dimensions: '30 x 30 cm',
     year: '2026',
@@ -237,7 +250,7 @@ export const artworks: Artwork[] = [
   },
   {
     id: 'paintings2-6-jpg',
-    title: 'Untitled 6',
+    title: 'የእርጥበት ስሜት · The Moist Rhythm',
     medium: 'Acrylic on Cardboard',
     dimensions: '30 x 30 cm',
     year: '2026',
@@ -249,21 +262,8 @@ export const artworks: Artwork[] = [
     rowSpan: 1
   },
   {
-    id: 'paintings2-7-jpg',
-    title: 'Untitled 7',
-    medium: 'Acrylic on Cardboard',
-    dimensions: '30 x 30 cm',
-    year: '2026',
-    category: 'painting',
-    available: true,
-    thumbnail: '/works/paintings2/thumbs/7.jpg',
-    full: '/works/paintings2/7.jpg',
-    colSpan: 2,
-    rowSpan: 1
-  },
-  {
     id: 'digital-art-img-0181-jpg',
-    title: 'Work 0181',
+    title: 'የቀለጠች ከተማ · Molten Cityscape',
     medium: 'Digital Art',
     dimensions: '100 x 100 cm',
     category: 'digital',
@@ -275,7 +275,7 @@ export const artworks: Artwork[] = [
   },
   {
     id: 'digital-art-img-0184-jpg',
-    title: 'Work 0184',
+    title: 'የስሜት ግለት · Emotional Intensity',
     medium: 'Digital Art',
     dimensions: '100 x 100 cm',
     category: 'digital',
@@ -287,7 +287,7 @@ export const artworks: Artwork[] = [
   },
   {
     id: 'digital-art-img-0185-jpg',
-    title: 'Work 0185',
+    title: 'ስውር ዲያሎግ · Submerged Dialogue',
     medium: 'Digital Art',
     dimensions: '100 x 100 cm',
     category: 'digital',
@@ -299,7 +299,7 @@ export const artworks: Artwork[] = [
   },
   {
     id: 'digital-art-img-0186-jpg',
-    title: 'Work 0186',
+    title: 'የምሽት ምት · Pulse of the Night',
     medium: 'Digital Art',
     dimensions: '100 x 100 cm',
     category: 'digital',
@@ -311,7 +311,7 @@ export const artworks: Artwork[] = [
   },
   {
     id: 'digital-art-img-0187-jpg',
-    title: 'Work 0187',
+    title: 'የጭጋግ ነፍስ · Soul in the Mist',
     medium: 'Digital Art',
     dimensions: '100 x 100 cm',
     category: 'digital',
@@ -323,7 +323,7 @@ export const artworks: Artwork[] = [
   },
   {
     id: 'digital-art-img-0188-jpg',
-    title: 'Work 0188',
+    title: 'መደራረብ · Layers of the Soul',
     medium: 'Digital Art',
     dimensions: '100 x 100 cm',
     category: 'digital',
@@ -335,7 +335,7 @@ export const artworks: Artwork[] = [
   },
   {
     id: 'digital-art-img-0189-jpg',
-    title: 'Work 0189',
+    title: 'የጥላዎች ዳንስ · Dance of Shadows',
     medium: 'Digital Art',
     dimensions: '100 x 100 cm',
     category: 'digital',
@@ -347,7 +347,7 @@ export const artworks: Artwork[] = [
   },
   {
     id: 'digital-art-img-0190-jpg',
-    title: 'Work 0190',
+    title: 'የተመጣጠነ ፍልሚያ · A Balanced Conflict',
     medium: 'Digital Art',
     dimensions: '100 x 100 cm',
     category: 'digital',
