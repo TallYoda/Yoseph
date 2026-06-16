@@ -165,5 +165,5 @@ TROUBLESHOOTING
 
 INSTAGRAM (navbar)
 ------------------
-Header icon links to: https://www.instagram.com/atsklewi
+Header icon links to: https://www.instagram.com/atskelewi
 Edit: src/components/layout/Header.tsx

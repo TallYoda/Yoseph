@@ -46,7 +46,7 @@ export default function Header() {
             Contact
           </NavLink>
           <a
-            href="https://www.instagram.com/atsklewi"
+            href="https://www.instagram.com/atskelewi"
             target="_blank"
             rel="noreferrer"
             aria-label="Instagram"

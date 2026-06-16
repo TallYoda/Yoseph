@@ -36,7 +36,7 @@ export default function Footer() {
         <div className="footer-contact">
           <a
             className="footer-contact-link"
-            href="https://www.instagram.com/atsklewi"
+            href="https://www.instagram.com/atskelewi"
             target="_blank"
             rel="noreferrer"
           >
