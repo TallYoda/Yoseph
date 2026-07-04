@@ -123,13 +123,8 @@ textarea {
   opacity: 1;
 }
 
-.home-page {
-  min-height: calc(100dvh - 72px);
-  overflow: hidden;
-}
-
-/* ── Hero tuning — adjust variables below to resize type, position & card ── */
 .hero {
+  scroll-margin-top: 100px;
   --hero-card-max-width: min(94vw, 900px);
   --hero-card-padding: clamp(1.5rem, 3.2vw, 2.35rem);
   --hero-eyebrow-size: 0.78rem;
@@ -212,8 +207,8 @@ textarea {
   text-wrap: pretty;
 }
 
-.page main:not(.home-page) {
-  padding-top: 1.5rem;
+.page main {
+  padding-top: 0;
 }
 
 .nav a.is-active {

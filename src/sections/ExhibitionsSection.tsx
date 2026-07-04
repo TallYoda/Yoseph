@@ -4,7 +4,7 @@ import GalleryLightbox from '../components/gallery/GalleryLightbox'
 import { exhibitionImages } from '../data/exhibitions'
 import { useScrollLock } from '../hooks/useScrollLock'
 
-export default function ExhibitionsPage() {
+export default function ExhibitionsSection() {
   const [activeIndex, setActiveIndex] = useState<number | null>(null)
 
   useScrollLock(activeIndex !== null)
@@ -17,14 +17,14 @@ export default function ExhibitionsPage() {
       }
       if (event.key === 'ArrowRight') {
         setActiveIndex((prev) =>
-          prev === null ? 0 : (prev + 1) % exhibitionImages.length
+          prev === null ? 0 : (prev + 1) % exhibitionImages.length,
         )
       }
       if (event.key === 'ArrowLeft') {
         setActiveIndex((prev) =>
           prev === null
             ? exhibitionImages.length - 1
-            : (prev - 1 + exhibitionImages.length) % exhibitionImages.length
+            : (prev - 1 + exhibitionImages.length) % exhibitionImages.length,
         )
       }
     }
@@ -34,7 +34,7 @@ export default function ExhibitionsPage() {
 
   const handleNext = () => {
     setActiveIndex((prev) =>
-      prev === null ? 0 : (prev + 1) % exhibitionImages.length
+      prev === null ? 0 : (prev + 1) % exhibitionImages.length,
     )
   }
 
@@ -42,13 +42,13 @@ export default function ExhibitionsPage() {
     setActiveIndex((prev) =>
       prev === null
         ? exhibitionImages.length - 1
-        : (prev - 1 + exhibitionImages.length) % exhibitionImages.length
+        : (prev - 1 + exhibitionImages.length) % exhibitionImages.length,
     )
   }
 
   return (
-    <main id="top">
-      <Section className="gallery-hero">
+    <>
+      <Section id="exhibitions" className="gallery-hero">
         <div className="section-header">
           <div>
             <h2>Exhibitions</h2>
@@ -88,6 +88,6 @@ export default function ExhibitionsPage() {
           onPrev={handlePrev}
         />
       )}
-    </main>
+    </>
   )
 }

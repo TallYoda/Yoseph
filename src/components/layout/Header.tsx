@@ -1,20 +1,27 @@
 import { useState } from 'react'
-import { Link, NavLink } from 'react-router-dom'
+import { useActiveSection } from '../../hooks/useActiveSection'
 
-const navClass = ({ isActive }: { isActive: boolean }) =>
-  isActive ? 'is-active' : undefined
+const NAV_ITEMS = [
+  { id: 'top', label: 'Home', href: '#top' },
+  { id: 'works', label: 'Works', href: '#works' },
+  { id: 'about', label: 'About', href: '#about' },
+  { id: 'cv', label: 'CV', href: '#cv' },
+  { id: 'exhibitions', label: 'Exhibitions', href: '#exhibitions' },
+  { id: 'contact', label: 'Contact', href: '#contact' },
+] as const
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false)
+  const activeSection = useActiveSection()
 
   const handleClose = () => setIsOpen(false)
 
   return (
     <header className="site-header">
       <div className="header-inner">
-        <Link className="brand" to="/" onClick={handleClose}>
+        <a className="brand" href="#top" onClick={handleClose}>
           Yosef Atskelewi
-        </Link>
+        </a>
         <button
           type="button"
           className="nav-toggle"
@@ -27,24 +34,16 @@ export default function Header() {
           <span />
         </button>
         <nav className={`nav ${isOpen ? 'is-open' : ''}`}>
-          <NavLink to="/" end className={navClass} onClick={handleClose}>
-            Home
-          </NavLink>
-          <NavLink to="/works" className={navClass} onClick={handleClose}>
-            Works
-          </NavLink>
-          <NavLink to="/about" className={navClass} onClick={handleClose}>
-            About
-          </NavLink>
-          <NavLink to="/cv" className={navClass} onClick={handleClose}>
-            CV
-          </NavLink>
-          <NavLink to="/exhibitions" className={navClass} onClick={handleClose}>
-            Exhibitions
-          </NavLink>
-          <NavLink to="/contact" className={navClass} onClick={handleClose}>
-            Contact
-          </NavLink>
+          {NAV_ITEMS.map((item) => (
+            <a
+              key={item.id}
+              href={item.href}
+              className={activeSection === item.id ? 'is-active' : undefined}
+              onClick={handleClose}
+            >
+              {item.label}
+            </a>
+          ))}
           <a
             href="https://www.instagram.com/atskelewi"
             target="_blank"
