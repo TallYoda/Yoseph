@@ -15,7 +15,10 @@ import path from 'node:path'
  */
 
 export const PAINTINGS_DISPLAY_ORDER = [
-  // Featured
+  // Featured — newest large canvases first
+  '20',
+  '21',
+  '22',
   '8',
   '1.1',
   '16',

@@ -1,6 +1,7 @@
 import fs from 'node:fs/promises'
 import path from 'node:path'
 import sharp from 'sharp'
+import { resolveArtworkMeta } from './artwork-meta.mjs'
 import { resolveArtworkTitle } from './artwork-titles.mjs'
 import { sortImagesForSource } from './painting-display-order.mjs'
 
@@ -223,6 +224,7 @@ async function processWorks() {
       const sourceFile = path.join(sourcePath, image)
       const { filename, thumbName } = await copyAndThumb(sourceFile, destDir, thumbDir)
       const id = `${source.slug}-${filename}`.toLowerCase().replace(/[^a-z0-9.]+/g, '-').replace(/\./g, '-')
+      const pieceMeta = resolveArtworkMeta(source.slug, filename)
 
       const pieceNumber = installationNumberFromFilename(filename)
       const description =
@@ -237,9 +239,9 @@ async function processWorks() {
           filename,
           titleFromFilename(filename),
         ),
-        medium,
-        dimensions,
-        year,
+        medium: pieceMeta.medium ?? medium,
+        dimensions: pieceMeta.size ?? dimensions,
+        year: pieceMeta.year ?? year,
         category: source.category,
         available: true,
         thumbnail: `/works/${source.slug}/thumbs/${thumbName}`,

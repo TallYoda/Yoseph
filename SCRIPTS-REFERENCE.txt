@@ -85,11 +85,14 @@ STEP 1 — Place the image in the correct source folder
   Supported formats: .jpg .jpeg .png .webp (case insensitive)
   If both 2.jpg and 2.png exist, .jpg wins (dedupe by basename).
 
-STEP 2 — Optional metadata (Description.txt in same folder)
-  Key: value lines, e.g.:
+STEP 2 — Optional metadata
+  Folder-level defaults (Description.txt / details.txt in same folder):
     medium: Acrylic on canvas
     size: 80 x 100 cm
     year: 2025
+
+  Per-artwork overrides (preferred for mixed sizes): scripts/artwork-meta.mjs
+    'paintings/20': { medium: '...', size: '150 x 150 cm', year: '2026' },
 
   Installation descriptions (installation/Description.txt only):
     Installation 01 - Title line

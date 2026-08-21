@@ -27,6 +27,9 @@ export const ARTWORK_TITLES = {
   'paintings/17': bilingual('የተመጣጠነ ፍልሚያ', 'A Balanced Conflict'),
   'paintings/18': bilingual('የማለዳ ትግል', 'The Morning Struggle'),
   'paintings/19': bilingual('የውስጥ ብልጭታ', 'Inner Sparks'),
+  'paintings/20': englishOnly('Colors of Memory'),
+  'paintings/21': bilingual('የብርሃን ስብጥር', 'Constructed Memories'),
+  'paintings/22': bilingual('በስሜት መካከል', 'Between the Lines of Emotion'),
 
   // Paintings — 30×30 series (paintings2 folder)
   // Series # → file:  1 → 1.png | 2 → 6.jpg | 3 → 7.jpg | 4 → 4.jpg

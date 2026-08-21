@@ -2,6 +2,45 @@ import type { Artwork } from '../types/artwork'
 
 export const artworks: Artwork[] = [
   {
+    id: 'paintings-20-jpg',
+    title: 'Colors of Memory',
+    medium: 'Acrylic on canvas',
+    dimensions: '150 x 150 cm',
+    year: '2026',
+    category: 'painting',
+    available: true,
+    thumbnail: '/works/paintings/thumbs/20.jpg',
+    full: '/works/paintings/20.jpg',
+    colSpan: 2,
+    rowSpan: 1
+  },
+  {
+    id: 'paintings-21-jpg',
+    title: 'የብርሃን ስብጥር · Constructed Memories',
+    medium: 'Acrylic on canvas',
+    dimensions: '150 x 150 cm',
+    year: '2026',
+    category: 'painting',
+    available: true,
+    thumbnail: '/works/paintings/thumbs/21.jpg',
+    full: '/works/paintings/21.jpg',
+    colSpan: 2,
+    rowSpan: 1
+  },
+  {
+    id: 'paintings-22-jpg',
+    title: 'በስሜት መካከል · Between the Lines of Emotion',
+    medium: 'Acrylic on canvas',
+    dimensions: '150 x 150 cm',
+    year: '2026',
+    category: 'painting',
+    available: true,
+    thumbnail: '/works/paintings/thumbs/22.jpg',
+    full: '/works/paintings/22.jpg',
+    colSpan: 2,
+    rowSpan: 1
+  },
+  {
     id: 'paintings-8-jpg',
     title: 'የመረጋጋት ጥልቀት · Depths of Serenity',
     medium: 'Acrylic on Cardboard',
