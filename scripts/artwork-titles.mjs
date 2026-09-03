@@ -30,6 +30,13 @@ export const ARTWORK_TITLES = {
   'paintings/20': englishOnly('Colors of Memory'),
   'paintings/21': bilingual('የብርሃን ስብጥር', 'Constructed Memories'),
   'paintings/22': bilingual('በስሜት መካከል', 'Between the Lines of Emotion'),
+  'paintings/23': englishOnly('Green Silence'),
+  'paintings/24': englishOnly('Hidden Form'),
+  'paintings/25': bilingual('ዝምታ', 'Silence'),
+  'paintings/26': englishOnly('Urban Memories'),
+  'paintings/27': bilingual('የሌሊት ጥላ', 'Night Shadow'),
+  'paintings/28': bilingual('የቀለማት ዳንስ', 'Dance of Colors'),
+  'paintings/29': bilingual('የከተማ ድምፅ እና ሰላም', 'Urban Echo and Calm'),
 
   // Paintings — 30×30 series (paintings2 folder)
   // Series # → file:  1 → 1.png | 2 → 6.jpg | 3 → 7.jpg | 4 → 4.jpg

@@ -21,6 +21,41 @@ export const ARTWORK_META = {
     size: '150 x 150 cm',
     year: '2026',
   },
+  'paintings/23': {
+    medium: 'Acrylic on canvas',
+    size: '100 x 100 cm',
+    year: '2026',
+  },
+  'paintings/24': {
+    medium: 'Acrylic on canvas',
+    size: '100 x 100 cm',
+    year: '2026',
+  },
+  'paintings/25': {
+    medium: 'Acrylic on canvas',
+    size: '100 x 100 cm',
+    year: '2026',
+  },
+  'paintings/26': {
+    medium: 'Acrylic on canvas',
+    size: '100 x 100 cm',
+    year: '2026',
+  },
+  'paintings/27': {
+    medium: 'Acrylic on canvas',
+    size: '100 x 100 cm',
+    year: '2026',
+  },
+  'paintings/28': {
+    medium: 'Acrylic on canvas',
+    size: '100 x 100 cm',
+    year: '2026',
+  },
+  'paintings/29': {
+    medium: 'Acrylic on canvas',
+    size: '100 x 100 cm',
+    year: '2026',
+  },
 }
 
 /**

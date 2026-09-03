@@ -15,7 +15,15 @@ import path from 'node:path'
  */
 
 export const PAINTINGS_DISPLAY_ORDER = [
-  // Featured — newest large canvases first
+  // Featured — newest 100cm canvases first
+  '23',
+  '24',
+  '25',
+  '26',
+  '27',
+  '28',
+  '29',
+  // Featured — 150cm canvases
   '20',
   '21',
   '22',
